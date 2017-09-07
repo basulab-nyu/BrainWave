@@ -1,0 +1,12 @@
+.DS_Store
+*~
+*.swp
+*.pyc 
+datasets/I26FOV6/
+datasets/I30_Alz_L_10xABF_d1_042117/
+datasets/I30_Alz_L_10xABF_d3_042517/
+datasets/I30_Alz_L_10xABF_d2_042417/
+datasets/I30_WT_L_10xABF_d1_042117/
+datasets/I30_WT_L_10xABF_d2_042417/
+datasets/I30_WT_L_10xABF_d3_042517/
+analyzedDatasets
