@@ -1,0 +1,2357 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    118684,       2349]
+NotebookOptionsPosition[    113842,       2224]
+NotebookOutlinePosition[    114426,       2247]
+CellTagsIndexPosition[    114337,       2242]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"toExp", "[", "num_", "]"}], ":=", "\[IndentingNewLine]", 
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"StringContainsQ", "[", 
+      RowBox[{"num", ",", "\"\<e\>\""}], "]"}], "\[Equal]", "True"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"ToExpression", "[", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], "]"}], "*", 
+       RowBox[{"10", "^", 
+        RowBox[{"ToExpression", "[", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "]"}]}]}], "&"}], "@", 
+     RowBox[{"(", 
+      RowBox[{"StringSplit", "[", 
+       RowBox[{"num", ",", "\"\<e\>\""}], "]"}], ")"}]}], ",", 
+    RowBox[{"ToExpression", "[", "num", "]"}]}], "]"}]}]], "Input",ExpressionU\
+UID->"befa6bb4-c26c-4143-a0c1-43ffe582ef7c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"centers", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"toExp", "/@", 
+      RowBox[{"StringSplit", "[", 
+       RowBox[{"#", ",", "\"\<\\t\>\""}], "]"}]}], "&"}], "/@", 
+    RowBox[{"StringSplit", "[", 
+     RowBox[{
+      RowBox[{
+      "Import", "[", 
+       "\"\<Documents/brain-regions-analysis/datasets/I26FOV6/centers.txt\>\"\
+", "]"}], ",", "\"\<\\n\>\""}], "]"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.708686149237424*^9, 
+  3.7086862233866377`*^9}},ExpressionUUID->"8c319969-46ef-436d-b127-\
+a35ff8f97df7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"binarize", "[", "vec_", "]"}], ":=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"100", "#"}], ">", "1"}], ",", "1.", ",", "0."}], "]"}], "&"}],
+    "/@", "vec"}]}]], "Input",
+ CellChangeTimes->{{3.708686485608487*^9, 3.708686518297234*^9}, {
+  3.708686555530439*^9, 3.708686556444232*^9}, {3.708686630113207*^9, 
+  3.7086866492349787`*^9}, {3.7086868677728767`*^9, 
+  3.708686870882669*^9}},ExpressionUUID->"77dbfea1-73b7-47c2-9bc6-\
+397f2ba8e414"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"blankOdorA", "=", 
+   RowBox[{"toExp", "/@", 
+    RowBox[{"StringSplit", "[", 
+     RowBox[{
+      RowBox[{
+      "Import", "[", 
+       "\"\</Users/jkogan/Documents/brain-regions-analysis/analyzedDatasets/\
+I26FOV6/modelInformation/2stimuli/BlankF_OdorA/forestROIimportances.txt\>\"", 
+       "]"}], ",", "\"\<,\>\""}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"blankOdorB", "=", 
+   RowBox[{"toExp", "/@", 
+    RowBox[{"StringSplit", "[", 
+     RowBox[{
+      RowBox[{
+      "Import", "[", 
+       "\"\</Users/jkogan/Documents/brain-regions-analysis/analyzedDatasets/\
+I26FOV6/modelInformation/2stimuli/BlankF_OdorB/forestROIimportances.txt\>\"", 
+       "]"}], ",", "\"\<,\>\""}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"blankSound", "=", 
+   RowBox[{"toExp", "/@", 
+    RowBox[{"StringSplit", "[", 
+     RowBox[{
+      RowBox[{
+      "Import", "[", 
+       "\"\</Users/jkogan/Documents/brain-regions-analysis/analyzedDatasets/\
+I26FOV6/modelInformation/2stimuli/BlankF_Sound2kHz/forestROIimportances.txt\>\
+\"", "]"}], ",", "\"\<,\>\""}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"odorAodorB", "=", 
+   RowBox[{"toExp", "/@", 
+    RowBox[{"StringSplit", "[", 
+     RowBox[{
+      RowBox[{
+      "Import", "[", 
+       "\"\</Users/jkogan/Documents/brain-regions-analysis/analyzedDatasets/\
+I26FOV6/modelInformation/2stimuli/OdorA_OdorB/forestROIimportances.txt\>\"", 
+       "]"}], ",", "\"\<,\>\""}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"odorASound", "=", 
+   RowBox[{"toExp", "/@", 
+    RowBox[{"StringSplit", "[", 
+     RowBox[{
+      RowBox[{
+      "Import", "[", 
+       "\"\</Users/jkogan/Documents/brain-regions-analysis/analyzedDatasets/\
+I26FOV6/modelInformation/2stimuli/OdorA_Sound2kHz/forestROIimportances.txt\>\"\
+", "]"}], ",", "\"\<,\>\""}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"odorBSound", "=", 
+   RowBox[{"toExp", "/@", 
+    RowBox[{"StringSplit", "[", 
+     RowBox[{
+      RowBox[{
+      "Import", "[", 
+       "\"\</Users/jkogan/Documents/brain-regions-analysis/analyzedDatasets/\
+I26FOV6/modelInformation/2stimuli/OdorB_Sound2kHz/forestROIimportances.txt\>\"\
+", "]"}], ",", "\"\<,\>\""}], "]"}]}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.708449426227604*^9, 3.708449489243256*^9}, {
+  3.708449542207349*^9, 3.7084495849018183`*^9}, {3.708449723540101*^9, 
+  3.7084497511372643`*^9}, {3.7084522974049597`*^9, 3.7084523552909727`*^9}, {
+  3.708683518367323*^9, 3.70868352669386*^9}, {3.708683584949539*^9, 
+  3.708683592926486*^9}, {3.7086836285249157`*^9, 3.7086836771630373`*^9}, {
+  3.708683820085589*^9, 3.70868382866424*^9}, {3.708684664488838*^9, 
+  3.708684718016518*^9}, {3.708684753860168*^9, 
+  3.708684783026881*^9}},ExpressionUUID->"61008626-cf16-41cc-9e27-\
+4240960b2665"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"N", "@", 
+  RowBox[{"Correlation", "[", 
+   RowBox[{
+    RowBox[{"binarize", "@", "blankOdorA"}], ",", 
+    RowBox[{"binarize", "@", "blankOdorB"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.708683687879735*^9, 3.7086836886513433`*^9}, {
+  3.708683832032452*^9, 3.7086838364800873`*^9}, {3.708686535754401*^9, 
+  3.708686541426198*^9}},ExpressionUUID->"c81bc7e9-a8a9-40b3-9cb0-\
+afaec3d32c44"],
+
+Cell[BoxData["0.20265435783015334`"], "Output",
+ CellChangeTimes->{
+  3.708683688951291*^9, 3.708683836794936*^9, 3.708684061443096*^9, {
+   3.708684096790636*^9, 3.7086840991888437`*^9}, {3.708684130386484*^9, 
+   3.708684141114812*^9}, 3.70868478622579*^9, {3.708686539679134*^9, 
+   3.7086865418001623`*^9}},ExpressionUUID->"1dda9f72-d5a1-4f3a-9f0d-\
+99e27d817161"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"N", "@", 
+  RowBox[{"Correlation", "[", 
+   RowBox[{
+    RowBox[{"binarize", "@", "blankOdorA"}], ",", 
+    RowBox[{"binarize", "@", "blankSound"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.708449502173799*^9, 3.708449503639295*^9}, {
+  3.708686545200955*^9, 
+  3.708686553198331*^9}},ExpressionUUID->"5a2eaba7-2a3c-4e75-89c0-\
+7a1d30c50a2d"],
+
+Cell[BoxData["0.2501179619496009`"], "Output",
+ CellChangeTimes->{
+  3.7084495039606457`*^9, 3.70845236488456*^9, {3.7086838470546427`*^9, 
+   3.7086838722048473`*^9}, 3.708684062234407*^9, 3.708684100069813*^9, {
+   3.70868413124896*^9, 3.708684138342656*^9}, 3.70868478747259*^9, {
+   3.708686549140299*^9, 
+   3.7086865593585577`*^9}},ExpressionUUID->"483954ef-73de-4ef2-93b4-\
+786b22e4d823"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Correlation", "[", 
+  RowBox[{
+   RowBox[{"binarize", "@", "blankOdorB"}], ",", 
+   RowBox[{"binarize", "@", "blankSound"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7084495150387383`*^9, 3.7084495152883673`*^9}, {
+  3.708686561805382*^9, 
+  3.7086865677640247`*^9}},ExpressionUUID->"f1227ba4-e57d-4e62-8c81-\
+0c0cca228ed9"],
+
+Cell[BoxData["0.339427182201538`"], "Output",
+ CellChangeTimes->{
+  3.708449515545092*^9, 3.708452365925012*^9, {3.7086838503388557`*^9, 
+   3.7086838628191347`*^9}, {3.708684062988142*^9, 3.708684069273781*^9}, 
+   3.7086841007609177`*^9, {3.708684132087537*^9, 3.7086841357103662`*^9}, 
+   3.7086847884545937`*^9, 
+   3.708686568046067*^9},ExpressionUUID->"20539bee-6662-4098-bd79-\
+14d0c8fc4db0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Correlation", "[", 
+  RowBox[{"blankOdorA", ",", "odorAodorB"}], "]"}]], "Input",
+ CellChangeTimes->{{3.708449618367642*^9, 
+  3.708449628169005*^9}},ExpressionUUID->"aa62193f-b6ce-4084-ad72-\
+cdd1926c8dc3"],
+
+Cell[BoxData["0.6227993833395115`"], "Output",
+ CellChangeTimes->{3.7084496285481997`*^9, 3.708684067350168*^9, 
+  3.708684143431095*^9, 
+  3.708684789734107*^9},ExpressionUUID->"a7c22305-c146-48ed-8b0f-\
+dd55b23b77d5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "Correlation"}]], "Input",
+ CellChangeTimes->{{3.708449777490222*^9, 
+  3.7084497795734262`*^9}},ExpressionUUID->"b90871f5-9d85-40c6-8449-\
+9ade8c6d73f8"],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox["\<\"\\!\\(\\*RowBox[{\\\"Correlation\\\", \\\"[\\\", \
+RowBox[{SubscriptBox[StyleBox[\\\"v\\\", \\\"TI\\\"], StyleBox[\\\"1\\\", \
+\\\"TR\\\"]], \\\",\\\", SubscriptBox[StyleBox[\\\"v\\\", \\\"TI\\\"], \
+StyleBox[\\\"2\\\", \\\"TR\\\"]]}], \\\"]\\\"}]\\) gives the correlation \
+between the vectors \\!\\(\\*SubscriptBox[StyleBox[\\\"v\\\", \\\"TI\\\"], \
+StyleBox[\\\"1\\\", \\\"TR\\\"]]\\) and \
+\\!\\(\\*SubscriptBox[StyleBox[\\\"v\\\", \\\"TI\\\"], StyleBox[\\\"2\\\", \\\
+\"TR\\\"]]\\).\\n\\!\\(\\*RowBox[{\\\"Correlation\\\", \\\"[\\\", StyleBox[\\\
+\"m\\\", \\\"TI\\\"], \\\"]\\\"}]\\) gives the correlation matrix for the \
+matrix \\!\\(\\*StyleBox[\\\"m\\\", \
+\\\"TI\\\"]\\).\\n\\!\\(\\*RowBox[{\\\"Correlation\\\", \\\"[\\\", \
+RowBox[{SubscriptBox[StyleBox[\\\"m\\\", \\\"TI\\\"], StyleBox[\\\"1\\\", \
+\\\"TR\\\"]], \\\",\\\", SubscriptBox[StyleBox[\\\"m\\\", \\\"TI\\\"], \
+StyleBox[\\\"2\\\", \\\"TR\\\"]]}], \\\"]\\\"}]\\) gives the correlation \
+matrix for the matrices \\!\\(\\*SubscriptBox[StyleBox[\\\"m\\\", \
+\\\"TI\\\"], StyleBox[\\\"1\\\", \\\"TR\\\"]]\\) and \
+\\!\\(\\*SubscriptBox[StyleBox[\\\"m\\\", \\\"TI\\\"], StyleBox[\\\"2\\\", \\\
+\"TR\\\"]]\\).\\n\\!\\(\\*RowBox[{\\\"Correlation\\\", \\\"[\\\", StyleBox[\\\
+\"dist\\\", \\\"TI\\\"], \\\"]\\\"}]\\) gives the correlation matrix for the \
+multivariate symbolic distribution \\!\\(\\*StyleBox[\\\"dist\\\", \
+\\\"TI\\\"]\\).\\n\\!\\(\\*RowBox[{\\\"Correlation\\\", \\\"[\\\", \
+RowBox[{StyleBox[\\\"dist\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"i\\\", \\\
+\"TI\\\"], \\\",\\\", StyleBox[\\\"j\\\", \\\"TI\\\"]}], \\\"]\\\"}]\\) gives \
+the \\!\\(\\*RowBox[{\\\"(\\\", RowBox[{StyleBox[\\\"i\\\", \\\"TI\\\"], \
+\\\",\\\", StyleBox[\\\"j\\\", \\\"TI\\\"]}], \
+\\\")\\\"}]\\)\\!\\(\\*SuperscriptBox[\\\"\[Null]\\\", \\\"th\\\"]\\) \
+correlation for the multivariate symbolic distribution \
+\\!\\(\\*StyleBox[\\\"dist\\\", \\\"TI\\\"]\\). \"\>", "MSG"], 
+  "\[NonBreakingSpace]", 
+  ButtonBox[
+   StyleBox["\[RightSkeleton]", "SR"],
+   Active->True,
+   BaseStyle->"Link",
+   ButtonData->"paclet:ref/Correlation"]}]], "Print", "PrintUsage",
+ CellChangeTimes->{3.70844978016441*^9},
+ CellTags->
+  "Info293708435380-4179760",ExpressionUUID->"ece6f81f-a66d-4523-8f30-\
+1f7c6992e211"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Correlation", "[", 
+  RowBox[{"{", 
+   RowBox[{
+   "blankOdorA", ",", "blankOdorB", ",", "blankSound", ",", "odorAodorB", ",",
+     "odorASound", ",", "odorBSound"}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.70844979243718*^9, 
+  3.7084498180627728`*^9}},ExpressionUUID->"ecc40b52-8838-485d-be33-\
+1fa5b3c66515"],
+
+Cell[BoxData[
+ InterpretationBox[
+  TagBox[
+   FrameBox[GridBox[{
+      {
+       ItemBox[
+        TagBox[
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+            "1.0000000000000002`", ",", "0.2448537093026422`", ",", 
+             "Indeterminate", ",", "0.23316198921311063`", ",", 
+             "0.33064786910801997`", ",", "0.1858047104125433`", ",", 
+             "Indeterminate", ",", "0.28324554072420827`", ",", 
+             RowBox[{"-", "0.327179637198292`"}], ",", "0.4921736042737071`", 
+             ",", "0.47596243987984177`", ",", 
+             RowBox[{"-", "0.012246275344539552`"}], ",", 
+             TemplateBox[{"225"},
+              "OutputSizeLimit`Skeleton"], ",", 
+             RowBox[{"-", "0.7741443395376353`"}], ",", "Indeterminate", ",", 
+             "0.3114325789883694`", ",", 
+             RowBox[{"-", "0.3474139008454526`"}], ",", 
+             RowBox[{"-", "0.7773253043176768`"}], ",", "Indeterminate", ",", 
+             "Indeterminate", ",", 
+             RowBox[{"-", "0.7186410428717908`"}], ",", 
+             "0.09391884469085296`", ",", "Indeterminate", ",", 
+             "Indeterminate", ",", "Indeterminate"}], "}"}], ",", 
+           TemplateBox[{"247"},
+            "OutputSizeLimit`Skeleton"], ",", 
+           RowBox[{"{", 
+            TemplateBox[{"1"},
+             "OutputSizeLimit`Skeleton"], "}"}]}], "}"}],
+         Short[#, 5]& ],
+        BaseStyle->{Deployed -> False},
+        StripOnInput->False]},
+      {GridBox[{
+         {
+          TagBox[
+           TooltipBox[
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource[
+                "FEStrings", "sizeBriefExplanation"], StandardForm],
+               ImageSizeCache->{58., {2., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True], "OSLText",
+             StripOnInput->False],
+            StyleBox[
+             DynamicBox[
+              ToBoxes[
+               FEPrivate`FrontEndResource["FEStrings", "sizeExplanation"], 
+               StandardForm]], DynamicUpdating -> True, StripOnInput -> 
+             False]],
+           Annotation[#, 
+            Style[
+             Dynamic[
+              FEPrivate`FrontEndResource["FEStrings", "sizeExplanation"]], 
+             DynamicUpdating -> True], "Tooltip"]& ], 
+          ButtonBox[
+           PaneSelectorBox[{False->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowLess"], 
+                StandardForm],
+               ImageSizeCache->{50., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True], "OSLControl",
+             StripOnInput->False], True->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowLess"], 
+                StandardForm]],
+              StripOnInput->False,
+              DynamicUpdating->True], "OSLControlActive",
+             StripOnInput->False]}, Dynamic[
+             CurrentValue["MouseOver"]],
+            Alignment->Center,
+            FrameMargins->0,
+            ImageSize->{Automatic, 25}],
+           Appearance->None,
+           BaselinePosition->Baseline,
+           
+           ButtonFunction:>OutputSizeLimit`ButtonFunction[
+            OutputSizeLimit`Defer, 54, 27376439274211908454, 5/2],
+           Enabled->True,
+           Evaluator->Automatic,
+           Method->"Queued"], 
+          ButtonBox[
+           PaneSelectorBox[{False->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowMore"], 
+                StandardForm],
+               ImageSizeCache->{56., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True], "OSLControl",
+             StripOnInput->False], True->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowMore"], 
+                StandardForm],
+               ImageSizeCache->{56., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True], "OSLControlActive",
+             StripOnInput->False]}, Dynamic[
+             CurrentValue["MouseOver"]],
+            Alignment->Center,
+            FrameMargins->0,
+            ImageSize->{Automatic, 25}],
+           Appearance->None,
+           BaselinePosition->Baseline,
+           
+           ButtonFunction:>OutputSizeLimit`ButtonFunction[
+            OutputSizeLimit`Defer, 54, 27376439274211908454, 5 2],
+           Enabled->True,
+           Evaluator->Automatic,
+           Method->"Queued"], 
+          ButtonBox[
+           PaneSelectorBox[{False->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowAll"], 
+                StandardForm],
+               ImageSizeCache->{42., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True], "OSLControl",
+             StripOnInput->False], True->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeShowAll"], 
+                StandardForm]],
+              StripOnInput->False,
+              DynamicUpdating->True], "OSLControlActive",
+             StripOnInput->False]}, Dynamic[
+             CurrentValue["MouseOver"]],
+            Alignment->Center,
+            FrameMargins->0,
+            ImageSize->{Automatic, 25}],
+           Appearance->None,
+           BaselinePosition->Baseline,
+           
+           ButtonFunction:>OutputSizeLimit`ButtonFunction[
+            OutputSizeLimit`Defer, 54, 27376439274211908454, Infinity],
+           Enabled->True,
+           Evaluator->Automatic,
+           Method->"Queued"], 
+          ButtonBox[
+           PaneSelectorBox[{False->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeChangeLimit"], 
+                StandardForm],
+               ImageSizeCache->{74., {0., 8.}}],
+              StripOnInput->False,
+              DynamicUpdating->True], "OSLControl",
+             StripOnInput->False], True->
+            StyleBox[
+             StyleBox[
+              DynamicBox[ToBoxes[
+                FEPrivate`FrontEndResource["FEStrings", "sizeChangeLimit"], 
+                StandardForm]],
+              StripOnInput->False,
+              DynamicUpdating->True], "OSLControlActive",
+             StripOnInput->False]}, Dynamic[
+             CurrentValue["MouseOver"]],
+            Alignment->Center,
+            FrameMargins->0,
+            ImageSize->{Automatic, 25}],
+           Appearance->None,
+           BaselinePosition->Baseline,
+           ButtonFunction:>FrontEndExecute[{
+              FrontEnd`SetOptions[
+              FrontEnd`$FrontEnd, 
+               FrontEnd`PreferencesSettings -> {"Page" -> "Advanced"}], 
+              FrontEnd`FrontEndToken["PreferencesDialog"]}],
+           Evaluator->None,
+           Method->"Preemptive"]}
+        },
+        AutoDelete->False,
+        FrameStyle->GrayLevel[0.85],
+        GridBoxDividers->{"Columns" -> {False, {True}}},
+        GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+        GridBoxSpacings->{"Columns" -> {{2}}}]}
+     },
+     DefaultBaseStyle->"Column",
+     GridBoxAlignment->{
+      "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+       "RowsIndexed" -> {}},
+     GridBoxDividers->{
+      "Columns" -> {{False}}, "ColumnsIndexed" -> {}, "Rows" -> {{False}}, 
+       "RowsIndexed" -> {}},
+     GridBoxItemSize->{
+      "Columns" -> {{Automatic}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.5599999999999999]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], 
+         Offset[1.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}],
+    BaseStyle->"OutputSizeLimit",
+    FrameMargins->{{12, 12}, {0, 15}},
+    FrameStyle->GrayLevel[0.85],
+    RoundingRadius->5,
+    StripOnInput->False],
+   Deploy,
+   DefaultBaseStyle->"Deploy"],
+  If[27376439274211908454 === $SessionID, 
+   Out[54], Message[
+     MessageName[Syntax, "noinfoker"]]; Missing["NotAvailable"]; 
+   Null]]], "Output",
+ CellChangeTimes->{
+  3.708684147078861*^9},ExpressionUUID->"75ddc050-c7bb-47af-a9b7-\
+2bdd679de637"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Subsets", "[", 
+  RowBox[{
+   RowBox[{"StringSplit", "[", 
+    RowBox[{
+    "\"\<blankOdorA,blankOdorB,blankSound,odorAodorB,odorASound,odorBSound\>\"\
+", ",", "\"\<,\>\""}], "]"}], ",", 
+   RowBox[{"{", "2", "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.708449967721788*^9, 
+  3.7084499957279997`*^9}},ExpressionUUID->"55d05c77-98dd-429c-8aab-\
+5363c0083067"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"\<\"blankOdorA\"\>", ",", "\<\"blankOdorB\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"blankOdorA\"\>", ",", "\<\"blankSound\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"blankOdorA\"\>", ",", "\<\"odorAodorB\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"blankOdorA\"\>", ",", "\<\"odorASound\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"blankOdorA\"\>", ",", "\<\"odorBSound\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"blankOdorB\"\>", ",", "\<\"blankSound\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"blankOdorB\"\>", ",", "\<\"odorAodorB\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"blankOdorB\"\>", ",", "\<\"odorASound\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"blankOdorB\"\>", ",", "\<\"odorBSound\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"blankSound\"\>", ",", "\<\"odorAodorB\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"blankSound\"\>", ",", "\<\"odorASound\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"blankSound\"\>", ",", "\<\"odorBSound\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"odorAodorB\"\>", ",", "\<\"odorASound\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"odorAodorB\"\>", ",", "\<\"odorBSound\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"odorASound\"\>", ",", "\<\"odorBSound\"\>"}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.708449987979932*^9, 
+  3.708449996223942*^9}},ExpressionUUID->"666c9dc0-c975-47e6-b02e-\
+eb7ffde557ea"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Correlation", "[", 
+  RowBox[{"blankOdorA", ",", "blankOdorB"}], "]"}]], "Input",
+ CellChangeTimes->{{3.708698403210547*^9, 
+  3.708698414697544*^9}},ExpressionUUID->"df54f3d7-f33c-4433-8bd5-\
+b79bbe3aae1a"],
+
+Cell[BoxData["0.28964653579702904`"], "Output",
+ CellChangeTimes->{
+  3.708698415198533*^9},ExpressionUUID->"8a7fddaa-50e3-49da-99b6-\
+527434b0e945"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Correlation", "[", 
+  RowBox[{"odorAodorB", ",", "blankOdorB"}], "]"}]], "Input",
+ CellChangeTimes->{{3.708698422387856*^9, 
+  3.7086984244573097`*^9}},ExpressionUUID->"fb3d3dae-07cd-47ed-96eb-\
+27e5616ef4c5"],
+
+Cell[BoxData["0.3167974236846567`"], "Output",
+ CellChangeTimes->{
+  3.708698424816675*^9},ExpressionUUID->"ff6e1a6f-62e5-4854-abc2-\
+dd86c966baf9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Correlation", "[", 
+  RowBox[{"odorAodorB", ",", "blankOdorA"}], "]"}]], "Input",
+ CellChangeTimes->{{3.708698428643248*^9, 
+  3.708698429140057*^9}},ExpressionUUID->"33387bb1-1cbc-4063-b3cd-\
+025dd6ac0c96"],
+
+Cell[BoxData["0.6227993833395115`"], "Output",
+ CellChangeTimes->{
+  3.7086984295334387`*^9},ExpressionUUID->"594ed74d-b31d-46eb-96d9-\
+85eed96ec327"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Subsets", "[", 
+      RowBox[{
+       RowBox[{"StringSplit", "[", 
+        RowBox[{
+        "\"\<blankOdorA,blankOdorB,blankSound,odorAodorB,odorASound,\
+odorBSound\>\"", ",", "\"\<,\>\""}], "]"}], ",", 
+       RowBox[{"{", "2", "}"}]}], "]"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Correlation", "@@", "#"}], "&"}], "/@", 
+      RowBox[{"Subsets", "[", 
+       RowBox[{
+        RowBox[{"binarize", "/@", 
+         RowBox[{"{", 
+          RowBox[{
+          "blankOdorA", ",", "blankOdorB", ",", "blankSound", ",", 
+           "odorAodorB", ",", "odorASound", ",", "odorBSound"}], "}"}]}], ",", 
+        RowBox[{"{", "2", "}"}]}], "]"}]}]}], "}"}], "//", "Transpose"}], "//",
+   "TableForm"}]], "Input",
+ CellChangeTimes->{{3.708449897332718*^9, 3.708449935383956*^9}, {
+  3.70845004366564*^9, 3.708450048836493*^9}, {3.708450096933659*^9, 
+  3.708450100846128*^9}, {3.708686583115988*^9, 
+  3.7086866362253323`*^9}},ExpressionUUID->"c79d6505-597f-4b72-ad67-\
+9b2730f9b31e"],
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {GridBox[{
+       {"\<\"blankOdorA\"\>"},
+       {"\<\"blankOdorB\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.2026543578301533`"},
+    {GridBox[{
+       {"\<\"blankOdorA\"\>"},
+       {"\<\"blankSound\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.2501179619496009`"},
+    {GridBox[{
+       {"\<\"blankOdorA\"\>"},
+       {"\<\"odorAodorB\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.4522138786002235`"},
+    {GridBox[{
+       {"\<\"blankOdorA\"\>"},
+       {"\<\"odorASound\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.6354231120507978`"},
+    {GridBox[{
+       {"\<\"blankOdorA\"\>"},
+       {"\<\"odorBSound\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.01665654002802183`"},
+    {GridBox[{
+       {"\<\"blankOdorB\"\>"},
+       {"\<\"blankSound\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.339427182201538`"},
+    {GridBox[{
+       {"\<\"blankOdorB\"\>"},
+       {"\<\"odorAodorB\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.425163524432474`"},
+    {GridBox[{
+       {"\<\"blankOdorB\"\>"},
+       {"\<\"odorASound\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], 
+     RowBox[{"-", "0.010192453583035038`"}]},
+    {GridBox[{
+       {"\<\"blankOdorB\"\>"},
+       {"\<\"odorBSound\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.6712131058070944`"},
+    {GridBox[{
+       {"\<\"blankSound\"\>"},
+       {"\<\"odorAodorB\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.01806836711338984`"},
+    {GridBox[{
+       {"\<\"blankSound\"\>"},
+       {"\<\"odorASound\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.11902549096895522`"},
+    {GridBox[{
+       {"\<\"blankSound\"\>"},
+       {"\<\"odorBSound\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.08868210302685936`"},
+    {GridBox[{
+       {"\<\"odorAodorB\"\>"},
+       {"\<\"odorASound\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.5067914420453535`"},
+    {GridBox[{
+       {"\<\"odorAodorB\"\>"},
+       {"\<\"odorBSound\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.46708234141507426`"},
+    {GridBox[{
+       {"\<\"odorASound\"\>"},
+       {"\<\"odorBSound\"\>"}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.1]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "0.0536885459934232`"}
+   },
+   GridBoxAlignment->{
+    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+     "RowsIndexed" -> {}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}, "RowsIndexed" -> {}}],
+  TableForm[{{{"blankOdorA", "blankOdorB"}, 0.2026543578301533}, {{
+     "blankOdorA", "blankSound"}, 0.2501179619496009}, {{
+     "blankOdorA", "odorAodorB"}, 0.4522138786002235}, {{
+     "blankOdorA", "odorASound"}, 0.6354231120507978}, {{
+     "blankOdorA", "odorBSound"}, 0.01665654002802183}, {{
+     "blankOdorB", "blankSound"}, 0.339427182201538}, {{
+     "blankOdorB", "odorAodorB"}, 0.425163524432474}, {{
+     "blankOdorB", "odorASound"}, -0.010192453583035038`}, {{
+     "blankOdorB", "odorBSound"}, 0.6712131058070944}, {{
+     "blankSound", "odorAodorB"}, 0.01806836711338984}, {{
+     "blankSound", "odorASound"}, 0.11902549096895522`}, {{
+     "blankSound", "odorBSound"}, 0.08868210302685936}, {{
+     "odorAodorB", "odorASound"}, 0.5067914420453535}, {{
+     "odorAodorB", "odorBSound"}, 0.46708234141507426`}, {{
+     "odorASound", "odorBSound"}, 0.0536885459934232}}]]], "Output",
+ CellChangeTimes->{{3.7084499031751757`*^9, 3.708449936074457*^9}, 
+   3.708450049225356*^9, 3.7084501015807257`*^9, {3.7084516227010527`*^9, 
+   3.7084516308617*^9}, 3.708451705110326*^9, 3.708684154212463*^9, {
+   3.708684793653667*^9, 3.7086847982788353`*^9}, {3.708686585560788*^9, 
+   3.708686651839725*^9}, 
+   3.708687011835019*^9},ExpressionUUID->"0298bf5c-93a7-42c4-9e75-\
+570e92d250d6"]
+}, Open  ]],
+
+Cell["\<\
+it seems as though odor b and sound are more similar than odor a and b\
+\>", "Text",
+ CellChangeTimes->{{3.708451823123618*^9, 3.708451881461405*^9}, {
+  3.708684480867885*^9, 
+  3.708684499959347*^9}},ExpressionUUID->"c8813a28-391c-4f9f-b38d-\
+6370796f7b13"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.708451698203711*^9, 
+  3.708451698758574*^9}},ExpressionUUID->"16389885-65ed-489b-9f5f-\
+d82dc8d1cd55"],
+
+Cell[BoxData[
+ RowBox[{"(", 
+  RowBox[{"binarize", "/@", "odorBSound"}], ")"}]], "Input",
+ CellChangeTimes->{{3.708686851188448*^9, 3.708686853967955*^9}, 
+   3.708686920498625*^9},
+ EmphasizeSyntaxErrors->
+  True,ExpressionUUID->"7e22c33b-377c-4e6e-afea-2579f311f4bc"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Graphics", "[", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Opacity", "[", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"binarize", "@", "odorASound"}], ")"}], "[", 
+            RowBox[{"[", "c", "]"}], "]"}], "]"}], ",", 
+          RowBox[{"Disk", "[", 
+           RowBox[{
+            RowBox[{"centers", "[", 
+             RowBox[{"[", "c", "]"}], "]"}], ",", "3"}], "]"}]}], "}"}], ",", 
+        
+        RowBox[{"{", 
+         RowBox[{"c", ",", 
+          RowBox[{"Length", "@", "centers"}]}], "}"}]}], "]"}], 
+      "\[IndentingNewLine]", "}"}], "]"}], ",", 
+    RowBox[{"Graphics", "[", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Opacity", "[", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"binarize", "@", "odorBSound"}], ")"}], "[", 
+            RowBox[{"[", "c", "]"}], "]"}], "]"}], ",", 
+          RowBox[{"Disk", "[", 
+           RowBox[{
+            RowBox[{"centers", "[", 
+             RowBox[{"[", "c", "]"}], "]"}], ",", "3"}], "]"}]}], "}"}], ",", 
+        
+        RowBox[{"{", 
+         RowBox[{"c", ",", 
+          RowBox[{"Length", "@", "centers"}]}], "}"}]}], "]"}], 
+      "\[IndentingNewLine]", "}"}], "]"}]}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.70868622966441*^9, 3.708686359937503*^9}, {
+  3.708686391067746*^9, 3.70868639690014*^9}, {3.708686784844589*^9, 
+  3.708686857622312*^9}},ExpressionUUID->"7d877a3f-abc7-4120-917f-\
+55f1a041c5f4"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{InsetBox[
+      GraphicsBox[{{{
+          {Opacity[0.], DiskBox[{367.955528, 375.987649}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.68163, 217.786}, 3]}}, {
+          {Opacity[0.], DiskBox[{388.673329, 260.947536}, 3]}}, {
+          {Opacity[0.], DiskBox[{407.043087, 228.530927}, 3]}}, {
+          {Opacity[0.], DiskBox[{352.826724, 375.769771}, 3]}}, {
+          {Opacity[0.], DiskBox[{245.131716, 315.228631}, 3]}}, {
+          {Opacity[0.], DiskBox[{90.418994, 191.129264}, 3]}}, {
+          {Opacity[0.], DiskBox[{37.088894, 174.433272}, 3]}}, {
+          {Opacity[0.], DiskBox[{149.45458, 392.010313}, 3]}}, {
+          {Opacity[0.], DiskBox[{189.332821, 471.163179}, 3]}}, {
+          {Opacity[0.], DiskBox[{185.67206, 489.79784}, 3]}}, {
+          {Opacity[0.], DiskBox[{210.09697, 399.065369}, 3]}}, {
+          {Opacity[1.], DiskBox[{218.939111, 359.496076}, 3]}}, {
+          {Opacity[0.], DiskBox[{245.008787, 361.496553}, 3]}}, {
+          {Opacity[0.], DiskBox[{157.77674, 116.958867}, 3]}}, {
+          {Opacity[1.], DiskBox[{149.055102, 150.245407}, 3]}}, {
+          {Opacity[1.], DiskBox[{122.490038, 148.787949}, 3]}}, {
+          {Opacity[0.], DiskBox[{132.316881, 163.369915}, 3]}}, {
+          {Opacity[0.], DiskBox[{126.417188, 193.35019}, 3]}}, {
+          {Opacity[0.], DiskBox[{179.001575, 159.749882}, 3]}}, {
+          {Opacity[0.], DiskBox[{162.259508, 207.47545}, 3]}}, {
+          {Opacity[1.], DiskBox[{190.683085, 190.29132}, 3]}}, {
+          {Opacity[0.], DiskBox[{189.548085, 199.065301}, 3]}}, {
+          {Opacity[0.], DiskBox[{192.920571, 71.382433}, 3]}}, {
+          {Opacity[0.], DiskBox[{195.212329, 14.016242}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.651607, 6.824516}, 3]}}, {
+          {Opacity[1.], DiskBox[{417.709976, 316.578342}, 3]}}, {
+          {Opacity[0.], DiskBox[{362.737042, 181.919685}, 3]}}, {
+          {Opacity[0.], DiskBox[{369.471706, 196.543472}, 3]}}, {
+          {Opacity[0.], DiskBox[{389.903644, 187.436719}, 3]}}, {
+          {Opacity[0.], DiskBox[{379.425021, 211.86638}, 3]}}, {
+          {Opacity[1.], DiskBox[{387.774522, 233.052587}, 3]}}, {
+          {Opacity[0.], DiskBox[{393.314278, 214.007231}, 3]}}, {
+          {Opacity[0.], DiskBox[{398.370622, 207.455862}, 3]}}, {
+          {Opacity[0.], DiskBox[{410.15578, 219.327066}, 3]}}, {
+          {Opacity[0.], DiskBox[{412.885285, 240.58386}, 3]}}, {
+          {Opacity[0.], DiskBox[{318.379912, 145.407021}, 3]}}, {
+          {Opacity[1.], DiskBox[{311.83366, 165.387456}, 3]}}, {
+          {Opacity[0.], DiskBox[{317.422119, 171.61962}, 3]}}, {
+          {Opacity[0.], DiskBox[{294.367594, 152.934475}, 3]}}, {
+          {Opacity[0.], DiskBox[{312.313249, 236.893482}, 3]}}, {
+          {Opacity[1.], DiskBox[{215.918123, 83.657448}, 3]}}, {
+          {Opacity[1.], DiskBox[{259.281318, 50.115923}, 3]}}, {
+          {Opacity[0.], DiskBox[{215.038552, 136.885796}, 3]}}, {
+          {Opacity[0.], DiskBox[{219.490736, 151.796746}, 3]}}, {
+          {Opacity[1.], DiskBox[{252.536415, 152.912446}, 3]}}, {
+          {Opacity[0.], DiskBox[{264.595326, 179.963373}, 3]}}, {
+          {Opacity[1.], DiskBox[{232.748395, 238.129293}, 3]}}, {
+          {Opacity[0.], DiskBox[{218.176714, 32.317848}, 3]}}, {
+          {Opacity[1.], DiskBox[{244.128005, 78.787217}, 3]}}, {
+          {Opacity[0.], DiskBox[{231.370646, 84.835987}, 3]}}, {
+          {Opacity[0.], DiskBox[{242.509887, 87.990703}, 3]}}, {
+          {Opacity[0.], DiskBox[{248.768459, 97.748067}, 3]}}, {
+          {Opacity[1.], DiskBox[{261.458425, 75.344189}, 3]}}, {
+          {Opacity[0.], DiskBox[{276.845183, 139.149054}, 3]}}, {
+          {Opacity[0.], DiskBox[{273.996477, 154.187505}, 3]}}, {
+          {Opacity[0.], DiskBox[{329.187693, 215.914421}, 3]}}, {
+          {Opacity[1.], DiskBox[{155.35504, 63.807378}, 3]}}, {
+          {Opacity[0.], DiskBox[{117.505391, 175.563636}, 3]}}, {
+          {Opacity[0.], DiskBox[{339.092803, 245.396907}, 3]}}, {
+          {Opacity[0.], DiskBox[{273.876543, 221.033273}, 3]}}, {
+          {Opacity[0.], DiskBox[{272.578988, 213.146446}, 3]}}, {
+          {Opacity[0.], DiskBox[{213.181669, 45.559408}, 3]}}, {
+          {Opacity[0.], DiskBox[{214.471423, 67.635373}, 3]}}, {
+          {Opacity[0.], DiskBox[{225.486841, 50.406946}, 3]}}, {
+          {Opacity[0.], DiskBox[{232.360889, 38.568496}, 3]}}, {
+          {Opacity[0.], DiskBox[{241.602342, 51.835855}, 3]}}, {
+          {Opacity[0.], DiskBox[{173.328663, 22.266201}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.977478, 84.103512}, 3]}}, {
+          {Opacity[1.], DiskBox[{202.729956, 100.231201}, 3]}}, {
+          {Opacity[0.], DiskBox[{288.848047, 97.402577}, 3]}}, {
+          {Opacity[0.], DiskBox[{314.590612, 76.837159}, 3]}}, {
+          {Opacity[0.], DiskBox[{295.732535, 167.506672}, 3]}}, {
+          {Opacity[0.], DiskBox[{162.456583, 107.585538}, 3]}}, {
+          {Opacity[0.], DiskBox[{170.111011, 145.904003}, 3]}}, {
+          {Opacity[1.], DiskBox[{283.716001, 375.855322}, 3]}}, {
+          {Opacity[0.], DiskBox[{297.884917, 339.034347}, 3]}}, {
+          {Opacity[0.], DiskBox[{328.875759, 352.262455}, 3]}}, {
+          {Opacity[0.], DiskBox[{377.096211, 359.133877}, 3]}}, {
+          {Opacity[0.], DiskBox[{385.064416, 344.251542}, 3]}}, {
+          {Opacity[0.], DiskBox[{364.347182, 246.65703}, 3]}}, {
+          {Opacity[0.], DiskBox[{369.150931, 207.059444}, 3]}}, {
+          {Opacity[0.], DiskBox[{325.646423, 162.164336}, 3]}}, {
+          {Opacity[0.], DiskBox[{316.504498, 153.461477}, 3]}}, {
+          {Opacity[0.], DiskBox[{294.835988, 237.576758}, 3]}}, {
+          {Opacity[0.], DiskBox[{240.574388, 191.092541}, 3]}}, {
+          {Opacity[0.], DiskBox[{237.047037, 204.062023}, 3]}}, {
+          {Opacity[0.], DiskBox[{229.577955, 212.59207}, 3]}}, {
+          {Opacity[0.], DiskBox[{190.999299, 160.328606}, 3]}}, {
+          {Opacity[0.], DiskBox[{198.198282, 165.651025}, 3]}}, {
+          {Opacity[0.], DiskBox[{174.647863, 188.37581}, 3]}}, {
+          {Opacity[0.], DiskBox[{155.739905, 52.723112}, 3]}}, {
+          {Opacity[0.], DiskBox[{155.391379, 25.250982}, 3]}}, {
+          {Opacity[0.], DiskBox[{157.757074, 9.362871}, 3]}}, {
+          {Opacity[0.], DiskBox[{275.647744, 103.723316}, 3]}}, {
+          {Opacity[0.], DiskBox[{339.807232, 215.219986}, 3]}}, {
+          {Opacity[0.], DiskBox[{340.056043, 223.997885}, 3]}}, {
+          {Opacity[0.], DiskBox[{114.763917, 157.516487}, 3]}}, {
+          {Opacity[0.], DiskBox[{147.152176, 127.243851}, 3]}}, {
+          {Opacity[0.], DiskBox[{87.802094, 71.824985}, 3]}}, {
+          {Opacity[0.], DiskBox[{76.184081, 89.032722}, 3]}}, {
+          {Opacity[0.], DiskBox[{163.993022, 174.151773}, 3]}}, {
+          {Opacity[0.], DiskBox[{353.184351, 217.749875}, 3]}}, {
+          {Opacity[0.], DiskBox[{350.205062, 259.522583}, 3]}}, {
+          {Opacity[0.], DiskBox[{362.523745, 257.246596}, 3]}}, {
+          {Opacity[0.], DiskBox[{394.110486, 324.013018}, 3]}}, {
+          {Opacity[0.], DiskBox[{397.526387, 333.836773}, 3]}}, {
+          {Opacity[0.], DiskBox[{397.070458, 402.679973}, 3]}}, {
+          {Opacity[0.], DiskBox[{409.844877, 396.377395}, 3]}}, {
+          {Opacity[0.], DiskBox[{332.84237, 340.229293}, 3]}}, {
+          {Opacity[0.], DiskBox[{324.6669, 341.130152}, 3]}}, {
+          {Opacity[1.], DiskBox[{259.228162, 314.285216}, 3]}}, {
+          {Opacity[1.], DiskBox[{266.896582, 312.093943}, 3]}}, {
+          {Opacity[0.], DiskBox[{396.656979, 385.547025}, 3]}}, {
+          {Opacity[0.], DiskBox[{408.646232, 331.895953}, 3]}}, {
+          {Opacity[0.], DiskBox[{402.650256, 351.955927}, 3]}}, {
+          {Opacity[0.], DiskBox[{413.145506, 374.634008}, 3]}}, {
+          {Opacity[0.], DiskBox[{411.875016, 386.301098}, 3]}}, {
+          {Opacity[0.], DiskBox[{408.80945, 259.0156}, 3]}}, {
+          {Opacity[0.], DiskBox[{404.594187, 408.640931}, 3]}}, {
+          {Opacity[0.], DiskBox[{407.028901, 414.681982}, 3]}}, {
+          {Opacity[0.], DiskBox[{405.25182, 435.744315}, 3]}}, {
+          {Opacity[0.], DiskBox[{414.36174, 421.845792}, 3]}}, {
+          {Opacity[0.], DiskBox[{423.719041, 413.845338}, 3]}}, {
+          {Opacity[1.], DiskBox[{436.691366, 429.094383}, 3]}}, {
+          {Opacity[0.], DiskBox[{336.588395, 476.71919}, 3]}}, {
+          {Opacity[1.], DiskBox[{392.744727, 480.825797}, 3]}}, {
+          {Opacity[0.], DiskBox[{401.998875, 496.981363}, 3]}}, {
+          {Opacity[0.], DiskBox[{411.080154, 499.15451}, 3]}}, {
+          {Opacity[0.], DiskBox[{420.367151, 497.940697}, 3]}}, {
+          {Opacity[0.], DiskBox[{421.105301, 488.994057}, 3]}}, {
+          {Opacity[0.], DiskBox[{424.335407, 479.601674}, 3]}}, {
+          {Opacity[0.], DiskBox[{418.687454, 469.541182}, 3]}}, {
+          {Opacity[0.], DiskBox[{461.836407, 431.923604}, 3]}}, {
+          {Opacity[0.], DiskBox[{455.892609, 445.026278}, 3]}}, {
+          {Opacity[0.], DiskBox[{450.124799, 464.172043}, 3]}}, {
+          {Opacity[0.], DiskBox[{471.90436, 440.069535}, 3]}}, {
+          {Opacity[0.], DiskBox[{210.548103, 195.838135}, 3]}}, {
+          {Opacity[0.], DiskBox[{378.333521, 311.684472}, 3]}}, {
+          {Opacity[0.], DiskBox[{239.548577, 153.186311}, 3]}}, {
+          {Opacity[0.], DiskBox[{247.203751, 143.480894}, 3]}}, {
+          {Opacity[0.], DiskBox[{288.758642, 138.808033}, 3]}}, {
+          {Opacity[0.], DiskBox[{113.446868, 116.573011}, 3]}}, {
+          {Opacity[0.], DiskBox[{134.829274, 114.664664}, 3]}}, {
+          {Opacity[0.], DiskBox[{308.848586, 271.639146}, 3]}}, {
+          {Opacity[0.], DiskBox[{322.263788, 252.532513}, 3]}}, {
+          {Opacity[0.], DiskBox[{362.042945, 390.525161}, 3]}}, {
+          {Opacity[0.], DiskBox[{372.993249, 396.052113}, 3]}}, {
+          {Opacity[0.], DiskBox[{377.566815, 378.662956}, 3]}}, {
+          {Opacity[0.], DiskBox[{385.071813, 389.240253}, 3]}}, {
+          {Opacity[0.], DiskBox[{345.698525, 271.619498}, 3]}}, {
+          {Opacity[0.], DiskBox[{360.961183, 284.766134}, 3]}}, {
+          {Opacity[0.], DiskBox[{288.446022, 79.701162}, 3]}}, {
+          {Opacity[0.], DiskBox[{298.99026, 54.682506}, 3]}}, {
+          {Opacity[1.], DiskBox[{215.593945, 148.345354}, 3]}}, {
+          {Opacity[0.], DiskBox[{383.443096, 405.964648}, 3]}}, {
+          {Opacity[0.], DiskBox[{298.248135, 377.085975}, 3]}}, {
+          {Opacity[0.], DiskBox[{235.731854, 126.304629}, 3]}}, {
+          {Opacity[0.], DiskBox[{297.19977, 361.829955}, 3]}}, {
+          {Opacity[0.], DiskBox[{257.945551, 119.515784}, 3]}}, {
+          {Opacity[0.], DiskBox[{377.141228, 230.982872}, 3]}}, {
+          {Opacity[0.], DiskBox[{367.978113, 236.836253}, 3]}}, {
+          {Opacity[1.], DiskBox[{392.568054, 412.518265}, 3]}}, {
+          {Opacity[0.], DiskBox[{311.83869, 366.633642}, 3]}}, {
+          {Opacity[0.], DiskBox[{320.256974, 365.993932}, 3]}}, {
+          {Opacity[0.], DiskBox[{278.505341, 202.966802}, 3]}}, {
+          {Opacity[0.], DiskBox[{236.824056, 301.740634}, 3]}}, {
+          {Opacity[0.], DiskBox[{296.013021, 328.865139}, 3]}}, {
+          {Opacity[0.], DiskBox[{99.637158, 76.686766}, 3]}}, {
+          {Opacity[0.], DiskBox[{449.537181, 271.049363}, 3]}}, {
+          {Opacity[0.], DiskBox[{174.963169, 136.912637}, 3]}}, {
+          {Opacity[0.], DiskBox[{165.337411, 136.958679}, 3]}}, {
+          {Opacity[1.], DiskBox[{110.610281, 56.065077}, 3]}}, {
+          {Opacity[0.], DiskBox[{116.782598, 57.923176}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.96646, 60.616288}, 3]}}, {
+          {Opacity[0.], DiskBox[{271.328182, 48.607825}, 3]}}, {
+          {Opacity[0.], DiskBox[{284.360289, 388.9975}, 3]}}, {
+          {Opacity[0.], DiskBox[{317.301607, 302.931996}, 3]}}, {
+          {Opacity[0.], DiskBox[{392.428027, 319.317016}, 3]}}, {
+          {Opacity[0.], DiskBox[{342.296182, 386.513072}, 3]}}, {
+          {Opacity[0.], DiskBox[{205.903323, 148.666891}, 3]}}, {
+          {Opacity[0.], DiskBox[{250.58548, 169.751138}, 3]}}, {
+          {Opacity[0.], DiskBox[{353.692874, 297.709114}, 3]}}, {
+          {Opacity[0.], DiskBox[{360.590949, 306.586832}, 3]}}, {
+          {Opacity[0.], DiskBox[{263.233745, 287.721639}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.574398, 243.551575}, 3]}}, {
+          {Opacity[1.], DiskBox[{148.484968, 143.538404}, 3]}}, {
+          {Opacity[0.], DiskBox[{182.780571, 72.809642}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.537778, 193.632461}, 3]}}, {
+          {Opacity[0.], DiskBox[{330.495204, 234.329968}, 3]}}, {
+          {Opacity[0.], DiskBox[{350.028629, 200.672392}, 3]}}, {
+          {Opacity[0.], DiskBox[{256.94027, 469.428257}, 3]}}, {
+          {Opacity[0.], DiskBox[{289.225597, 308.204634}, 3]}}, {
+          {Opacity[0.], DiskBox[{286.101253, 356.384798}, 3]}}, {
+          {Opacity[0.], DiskBox[{342.946326, 403.960347}, 3]}}, {
+          {Opacity[0.], DiskBox[{366.470097, 416.964764}, 3]}}, {
+          {Opacity[0.], DiskBox[{168.819516, 222.520817}, 3]}}, {
+          {Opacity[0.], DiskBox[{190.465418, 50.426288}, 3]}}, {
+          {Opacity[0.], DiskBox[{183.778807, 43.908763}, 3]}}, {
+          {Opacity[0.], DiskBox[{146.304384, 244.292454}, 3]}}, {
+          {Opacity[0.], DiskBox[{187.362231, 286.189563}, 3]}}, {
+          {Opacity[0.], DiskBox[{202.361013, 289.487017}, 3]}}, {
+          {Opacity[0.], DiskBox[{216.0562, 296.274733}, 3]}}, {
+          {Opacity[0.], DiskBox[{326.039831, 148.018343}, 3]}}, {
+          {Opacity[0.], DiskBox[{283.242702, 231.325216}, 3]}}, {
+          {Opacity[0.], DiskBox[{316.084069, 321.747864}, 3]}}, {
+          {Opacity[0.], DiskBox[{318.104792, 264.695538}, 3]}}, {
+          {Opacity[0.], DiskBox[{213.880236, 120.444067}, 3]}}, {
+          {Opacity[0.], DiskBox[{103.575073, 158.291423}, 3]}}, {
+          {Opacity[0.], DiskBox[{196.422634, 176.649185}, 3]}}, {
+          {Opacity[0.], DiskBox[{253.993859, 42.883218}, 3]}}, {
+          {Opacity[0.], DiskBox[{248.097758, 33.982947}, 3]}}, {
+          {Opacity[0.], DiskBox[{261.512518, 31.951939}, 3]}}, {
+          {Opacity[0.], DiskBox[{214.479638, 18.605149}, 3]}}, {
+          {Opacity[0.], DiskBox[{226.499491, 198.167119}, 3]}}, {
+          {Opacity[0.], DiskBox[{176.880058, 207.62306}, 3]}}, {
+          {Opacity[0.], DiskBox[{172.971557, 271.728868}, 3]}}, {
+          {Opacity[0.], DiskBox[{137.095601, 140.924566}, 3]}}, {
+          {Opacity[0.], DiskBox[{157.04913, 84.238916}, 3]}}, {
+          {Opacity[0.], DiskBox[{279.735605, 262.780239}, 3]}}, {
+          {Opacity[0.], DiskBox[{332.446948, 266.355459}, 3]}}, {
+          {Opacity[0.], DiskBox[{336.262819, 255.209913}, 3]}}, {
+          {Opacity[0.], DiskBox[{225.791649, 180.413322}, 3]}}, {
+          {Opacity[0.], DiskBox[{247.042002, 270.659711}, 3]}}, {
+          {Opacity[0.], DiskBox[{226.236534, 37.468269}, 3]}}, {
+          {Opacity[0.], DiskBox[{302.871724, 290.595143}, 3]}}, {
+          {Opacity[0.], DiskBox[{350.891858, 395.258755}, 3]}}, {
+          {Opacity[0.], DiskBox[{381.794253, 434.971299}, 3]}}, {
+          {Opacity[0.], DiskBox[{260.463786, 252.369676}, 3]}}, {
+          {Opacity[0.], DiskBox[{285.188921, 163.889829}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.212501, 343.967136}, 3]}}, {
+          {Opacity[0.], DiskBox[{363.176298, 222.394535}, 3]}}, {
+          {Opacity[0.], DiskBox[{246.46131, 202.486521}, 3]}}, {
+          {Opacity[0.], DiskBox[{240.522705, 112.939231}, 3]}}, {
+          {Opacity[0.], DiskBox[{306.517028, 304.119902}, 3]}}, {
+          {Opacity[0.], DiskBox[{213.350829, 170.099898}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.497478, 240.763639}, 3]}}, {
+          {Opacity[0.], DiskBox[{67.944964, 180.334881}, 3]}}, {
+          {Opacity[0.], DiskBox[{321.158211, 350.819055}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.801037, 119.808435}, 3]}}, {
+          {Opacity[0.], DiskBox[{291.095437, 253.388553}, 3]}}, {
+          {Opacity[0.], DiskBox[{303.700758, 364.027128}, 3]}}, {
+          {Opacity[0.], DiskBox[{353.798577, 341.777952}, 3]}}, {
+          {Opacity[0.], DiskBox[{378.773337, 288.013984}, 3]}}, {
+          {Opacity[0.], DiskBox[{335.460804, 303.749204}, 3]}}, {
+          {Opacity[0.], DiskBox[{127.369954, 230.82484}, 3]}}, {
+          {Opacity[0.], DiskBox[{321.137133, 381.805081}, 3]}}, {
+          {Opacity[0.], DiskBox[{390.963134, 370.712521}, 3]}}, {
+          {Opacity[0.], DiskBox[{312.234651, 339.803573}, 3]}}}}], {192., -213.6594020183493},
+       ImageScaled[{0.5, 0.5}], {360., 406.9702895587606}], InsetBox[
+      GraphicsBox[{{{
+          {Opacity[0.], DiskBox[{367.955528, 375.987649}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.68163, 217.786}, 3]}}, {
+          {Opacity[0.], DiskBox[{388.673329, 260.947536}, 3]}}, {
+          {Opacity[0.], DiskBox[{407.043087, 228.530927}, 3]}}, {
+          {Opacity[0.], DiskBox[{352.826724, 375.769771}, 3]}}, {
+          {Opacity[1.], DiskBox[{245.131716, 315.228631}, 3]}}, {
+          {Opacity[0.], DiskBox[{90.418994, 191.129264}, 3]}}, {
+          {Opacity[0.], DiskBox[{37.088894, 174.433272}, 3]}}, {
+          {Opacity[0.], DiskBox[{149.45458, 392.010313}, 3]}}, {
+          {Opacity[1.], DiskBox[{189.332821, 471.163179}, 3]}}, {
+          {Opacity[0.], DiskBox[{185.67206, 489.79784}, 3]}}, {
+          {Opacity[0.], DiskBox[{210.09697, 399.065369}, 3]}}, {
+          {Opacity[0.], DiskBox[{218.939111, 359.496076}, 3]}}, {
+          {Opacity[0.], DiskBox[{245.008787, 361.496553}, 3]}}, {
+          {Opacity[0.], DiskBox[{157.77674, 116.958867}, 3]}}, {
+          {Opacity[0.], DiskBox[{149.055102, 150.245407}, 3]}}, {
+          {Opacity[0.], DiskBox[{122.490038, 148.787949}, 3]}}, {
+          {Opacity[0.], DiskBox[{132.316881, 163.369915}, 3]}}, {
+          {Opacity[0.], DiskBox[{126.417188, 193.35019}, 3]}}, {
+          {Opacity[0.], DiskBox[{179.001575, 159.749882}, 3]}}, {
+          {Opacity[1.], DiskBox[{162.259508, 207.47545}, 3]}}, {
+          {Opacity[0.], DiskBox[{190.683085, 190.29132}, 3]}}, {
+          {Opacity[0.], DiskBox[{189.548085, 199.065301}, 3]}}, {
+          {Opacity[0.], DiskBox[{192.920571, 71.382433}, 3]}}, {
+          {Opacity[0.], DiskBox[{195.212329, 14.016242}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.651607, 6.824516}, 3]}}, {
+          {Opacity[1.], DiskBox[{417.709976, 316.578342}, 3]}}, {
+          {Opacity[0.], DiskBox[{362.737042, 181.919685}, 3]}}, {
+          {Opacity[0.], DiskBox[{369.471706, 196.543472}, 3]}}, {
+          {Opacity[0.], DiskBox[{389.903644, 187.436719}, 3]}}, {
+          {Opacity[0.], DiskBox[{379.425021, 211.86638}, 3]}}, {
+          {Opacity[0.], DiskBox[{387.774522, 233.052587}, 3]}}, {
+          {Opacity[0.], DiskBox[{393.314278, 214.007231}, 3]}}, {
+          {Opacity[0.], DiskBox[{398.370622, 207.455862}, 3]}}, {
+          {Opacity[0.], DiskBox[{410.15578, 219.327066}, 3]}}, {
+          {Opacity[0.], DiskBox[{412.885285, 240.58386}, 3]}}, {
+          {Opacity[0.], DiskBox[{318.379912, 145.407021}, 3]}}, {
+          {Opacity[0.], DiskBox[{311.83366, 165.387456}, 3]}}, {
+          {Opacity[0.], DiskBox[{317.422119, 171.61962}, 3]}}, {
+          {Opacity[1.], DiskBox[{294.367594, 152.934475}, 3]}}, {
+          {Opacity[0.], DiskBox[{312.313249, 236.893482}, 3]}}, {
+          {Opacity[0.], DiskBox[{215.918123, 83.657448}, 3]}}, {
+          {Opacity[0.], DiskBox[{259.281318, 50.115923}, 3]}}, {
+          {Opacity[1.], DiskBox[{215.038552, 136.885796}, 3]}}, {
+          {Opacity[0.], DiskBox[{219.490736, 151.796746}, 3]}}, {
+          {Opacity[0.], DiskBox[{252.536415, 152.912446}, 3]}}, {
+          {Opacity[0.], DiskBox[{264.595326, 179.963373}, 3]}}, {
+          {Opacity[0.], DiskBox[{232.748395, 238.129293}, 3]}}, {
+          {Opacity[0.], DiskBox[{218.176714, 32.317848}, 3]}}, {
+          {Opacity[0.], DiskBox[{244.128005, 78.787217}, 3]}}, {
+          {Opacity[0.], DiskBox[{231.370646, 84.835987}, 3]}}, {
+          {Opacity[0.], DiskBox[{242.509887, 87.990703}, 3]}}, {
+          {Opacity[0.], DiskBox[{248.768459, 97.748067}, 3]}}, {
+          {Opacity[0.], DiskBox[{261.458425, 75.344189}, 3]}}, {
+          {Opacity[0.], DiskBox[{276.845183, 139.149054}, 3]}}, {
+          {Opacity[0.], DiskBox[{273.996477, 154.187505}, 3]}}, {
+          {Opacity[1.], DiskBox[{329.187693, 215.914421}, 3]}}, {
+          {Opacity[0.], DiskBox[{155.35504, 63.807378}, 3]}}, {
+          {Opacity[0.], DiskBox[{117.505391, 175.563636}, 3]}}, {
+          {Opacity[0.], DiskBox[{339.092803, 245.396907}, 3]}}, {
+          {Opacity[0.], DiskBox[{273.876543, 221.033273}, 3]}}, {
+          {Opacity[0.], DiskBox[{272.578988, 213.146446}, 3]}}, {
+          {Opacity[0.], DiskBox[{213.181669, 45.559408}, 3]}}, {
+          {Opacity[0.], DiskBox[{214.471423, 67.635373}, 3]}}, {
+          {Opacity[0.], DiskBox[{225.486841, 50.406946}, 3]}}, {
+          {Opacity[1.], DiskBox[{232.360889, 38.568496}, 3]}}, {
+          {Opacity[0.], DiskBox[{241.602342, 51.835855}, 3]}}, {
+          {Opacity[0.], DiskBox[{173.328663, 22.266201}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.977478, 84.103512}, 3]}}, {
+          {Opacity[0.], DiskBox[{202.729956, 100.231201}, 3]}}, {
+          {Opacity[0.], DiskBox[{288.848047, 97.402577}, 3]}}, {
+          {Opacity[0.], DiskBox[{314.590612, 76.837159}, 3]}}, {
+          {Opacity[0.], DiskBox[{295.732535, 167.506672}, 3]}}, {
+          {Opacity[0.], DiskBox[{162.456583, 107.585538}, 3]}}, {
+          {Opacity[0.], DiskBox[{170.111011, 145.904003}, 3]}}, {
+          {Opacity[0.], DiskBox[{283.716001, 375.855322}, 3]}}, {
+          {Opacity[0.], DiskBox[{297.884917, 339.034347}, 3]}}, {
+          {Opacity[0.], DiskBox[{328.875759, 352.262455}, 3]}}, {
+          {Opacity[0.], DiskBox[{377.096211, 359.133877}, 3]}}, {
+          {Opacity[0.], DiskBox[{385.064416, 344.251542}, 3]}}, {
+          {Opacity[1.], DiskBox[{364.347182, 246.65703}, 3]}}, {
+          {Opacity[0.], DiskBox[{369.150931, 207.059444}, 3]}}, {
+          {Opacity[0.], DiskBox[{325.646423, 162.164336}, 3]}}, {
+          {Opacity[0.], DiskBox[{316.504498, 153.461477}, 3]}}, {
+          {Opacity[0.], DiskBox[{294.835988, 237.576758}, 3]}}, {
+          {Opacity[0.], DiskBox[{240.574388, 191.092541}, 3]}}, {
+          {Opacity[0.], DiskBox[{237.047037, 204.062023}, 3]}}, {
+          {Opacity[0.], DiskBox[{229.577955, 212.59207}, 3]}}, {
+          {Opacity[0.], DiskBox[{190.999299, 160.328606}, 3]}}, {
+          {Opacity[0.], DiskBox[{198.198282, 165.651025}, 3]}}, {
+          {Opacity[0.], DiskBox[{174.647863, 188.37581}, 3]}}, {
+          {Opacity[0.], DiskBox[{155.739905, 52.723112}, 3]}}, {
+          {Opacity[1.], DiskBox[{155.391379, 25.250982}, 3]}}, {
+          {Opacity[0.], DiskBox[{157.757074, 9.362871}, 3]}}, {
+          {Opacity[0.], DiskBox[{275.647744, 103.723316}, 3]}}, {
+          {Opacity[0.], DiskBox[{339.807232, 215.219986}, 3]}}, {
+          {Opacity[0.], DiskBox[{340.056043, 223.997885}, 3]}}, {
+          {Opacity[1.], DiskBox[{114.763917, 157.516487}, 3]}}, {
+          {Opacity[0.], DiskBox[{147.152176, 127.243851}, 3]}}, {
+          {Opacity[0.], DiskBox[{87.802094, 71.824985}, 3]}}, {
+          {Opacity[1.], DiskBox[{76.184081, 89.032722}, 3]}}, {
+          {Opacity[0.], DiskBox[{163.993022, 174.151773}, 3]}}, {
+          {Opacity[0.], DiskBox[{353.184351, 217.749875}, 3]}}, {
+          {Opacity[0.], DiskBox[{350.205062, 259.522583}, 3]}}, {
+          {Opacity[0.], DiskBox[{362.523745, 257.246596}, 3]}}, {
+          {Opacity[0.], DiskBox[{394.110486, 324.013018}, 3]}}, {
+          {Opacity[0.], DiskBox[{397.526387, 333.836773}, 3]}}, {
+          {Opacity[0.], DiskBox[{397.070458, 402.679973}, 3]}}, {
+          {Opacity[0.], DiskBox[{409.844877, 396.377395}, 3]}}, {
+          {Opacity[0.], DiskBox[{332.84237, 340.229293}, 3]}}, {
+          {Opacity[0.], DiskBox[{324.6669, 341.130152}, 3]}}, {
+          {Opacity[0.], DiskBox[{259.228162, 314.285216}, 3]}}, {
+          {Opacity[0.], DiskBox[{266.896582, 312.093943}, 3]}}, {
+          {Opacity[0.], DiskBox[{396.656979, 385.547025}, 3]}}, {
+          {Opacity[0.], DiskBox[{408.646232, 331.895953}, 3]}}, {
+          {Opacity[0.], DiskBox[{402.650256, 351.955927}, 3]}}, {
+          {Opacity[1.], DiskBox[{413.145506, 374.634008}, 3]}}, {
+          {Opacity[1.], DiskBox[{411.875016, 386.301098}, 3]}}, {
+          {Opacity[0.], DiskBox[{408.80945, 259.0156}, 3]}}, {
+          {Opacity[0.], DiskBox[{404.594187, 408.640931}, 3]}}, {
+          {Opacity[0.], DiskBox[{407.028901, 414.681982}, 3]}}, {
+          {Opacity[0.], DiskBox[{405.25182, 435.744315}, 3]}}, {
+          {Opacity[0.], DiskBox[{414.36174, 421.845792}, 3]}}, {
+          {Opacity[0.], DiskBox[{423.719041, 413.845338}, 3]}}, {
+          {Opacity[0.], DiskBox[{436.691366, 429.094383}, 3]}}, {
+          {Opacity[1.], DiskBox[{336.588395, 476.71919}, 3]}}, {
+          {Opacity[1.], DiskBox[{392.744727, 480.825797}, 3]}}, {
+          {Opacity[0.], DiskBox[{401.998875, 496.981363}, 3]}}, {
+          {Opacity[0.], DiskBox[{411.080154, 499.15451}, 3]}}, {
+          {Opacity[0.], DiskBox[{420.367151, 497.940697}, 3]}}, {
+          {Opacity[0.], DiskBox[{421.105301, 488.994057}, 3]}}, {
+          {Opacity[0.], DiskBox[{424.335407, 479.601674}, 3]}}, {
+          {Opacity[0.], DiskBox[{418.687454, 469.541182}, 3]}}, {
+          {Opacity[0.], DiskBox[{461.836407, 431.923604}, 3]}}, {
+          {Opacity[0.], DiskBox[{455.892609, 445.026278}, 3]}}, {
+          {Opacity[0.], DiskBox[{450.124799, 464.172043}, 3]}}, {
+          {Opacity[0.], DiskBox[{471.90436, 440.069535}, 3]}}, {
+          {Opacity[1.], DiskBox[{210.548103, 195.838135}, 3]}}, {
+          {Opacity[0.], DiskBox[{378.333521, 311.684472}, 3]}}, {
+          {Opacity[0.], DiskBox[{239.548577, 153.186311}, 3]}}, {
+          {Opacity[0.], DiskBox[{247.203751, 143.480894}, 3]}}, {
+          {Opacity[0.], DiskBox[{288.758642, 138.808033}, 3]}}, {
+          {Opacity[0.], DiskBox[{113.446868, 116.573011}, 3]}}, {
+          {Opacity[0.], DiskBox[{134.829274, 114.664664}, 3]}}, {
+          {Opacity[0.], DiskBox[{308.848586, 271.639146}, 3]}}, {
+          {Opacity[0.], DiskBox[{322.263788, 252.532513}, 3]}}, {
+          {Opacity[0.], DiskBox[{362.042945, 390.525161}, 3]}}, {
+          {Opacity[0.], DiskBox[{372.993249, 396.052113}, 3]}}, {
+          {Opacity[0.], DiskBox[{377.566815, 378.662956}, 3]}}, {
+          {Opacity[0.], DiskBox[{385.071813, 389.240253}, 3]}}, {
+          {Opacity[0.], DiskBox[{345.698525, 271.619498}, 3]}}, {
+          {Opacity[0.], DiskBox[{360.961183, 284.766134}, 3]}}, {
+          {Opacity[0.], DiskBox[{288.446022, 79.701162}, 3]}}, {
+          {Opacity[0.], DiskBox[{298.99026, 54.682506}, 3]}}, {
+          {Opacity[0.], DiskBox[{215.593945, 148.345354}, 3]}}, {
+          {Opacity[0.], DiskBox[{383.443096, 405.964648}, 3]}}, {
+          {Opacity[0.], DiskBox[{298.248135, 377.085975}, 3]}}, {
+          {Opacity[0.], DiskBox[{235.731854, 126.304629}, 3]}}, {
+          {Opacity[0.], DiskBox[{297.19977, 361.829955}, 3]}}, {
+          {Opacity[0.], DiskBox[{257.945551, 119.515784}, 3]}}, {
+          {Opacity[0.], DiskBox[{377.141228, 230.982872}, 3]}}, {
+          {Opacity[0.], DiskBox[{367.978113, 236.836253}, 3]}}, {
+          {Opacity[0.], DiskBox[{392.568054, 412.518265}, 3]}}, {
+          {Opacity[0.], DiskBox[{311.83869, 366.633642}, 3]}}, {
+          {Opacity[0.], DiskBox[{320.256974, 365.993932}, 3]}}, {
+          {Opacity[0.], DiskBox[{278.505341, 202.966802}, 3]}}, {
+          {Opacity[0.], DiskBox[{236.824056, 301.740634}, 3]}}, {
+          {Opacity[0.], DiskBox[{296.013021, 328.865139}, 3]}}, {
+          {Opacity[0.], DiskBox[{99.637158, 76.686766}, 3]}}, {
+          {Opacity[0.], DiskBox[{449.537181, 271.049363}, 3]}}, {
+          {Opacity[1.], DiskBox[{174.963169, 136.912637}, 3]}}, {
+          {Opacity[0.], DiskBox[{165.337411, 136.958679}, 3]}}, {
+          {Opacity[0.], DiskBox[{110.610281, 56.065077}, 3]}}, {
+          {Opacity[0.], DiskBox[{116.782598, 57.923176}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.96646, 60.616288}, 3]}}, {
+          {Opacity[0.], DiskBox[{271.328182, 48.607825}, 3]}}, {
+          {Opacity[0.], DiskBox[{284.360289, 388.9975}, 3]}}, {
+          {Opacity[0.], DiskBox[{317.301607, 302.931996}, 3]}}, {
+          {Opacity[0.], DiskBox[{392.428027, 319.317016}, 3]}}, {
+          {Opacity[0.], DiskBox[{342.296182, 386.513072}, 3]}}, {
+          {Opacity[0.], DiskBox[{205.903323, 148.666891}, 3]}}, {
+          {Opacity[0.], DiskBox[{250.58548, 169.751138}, 3]}}, {
+          {Opacity[0.], DiskBox[{353.692874, 297.709114}, 3]}}, {
+          {Opacity[0.], DiskBox[{360.590949, 306.586832}, 3]}}, {
+          {Opacity[0.], DiskBox[{263.233745, 287.721639}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.574398, 243.551575}, 3]}}, {
+          {Opacity[1.], DiskBox[{148.484968, 143.538404}, 3]}}, {
+          {Opacity[0.], DiskBox[{182.780571, 72.809642}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.537778, 193.632461}, 3]}}, {
+          {Opacity[0.], DiskBox[{330.495204, 234.329968}, 3]}}, {
+          {Opacity[0.], DiskBox[{350.028629, 200.672392}, 3]}}, {
+          {Opacity[1.], DiskBox[{256.94027, 469.428257}, 3]}}, {
+          {Opacity[0.], DiskBox[{289.225597, 308.204634}, 3]}}, {
+          {Opacity[0.], DiskBox[{286.101253, 356.384798}, 3]}}, {
+          {Opacity[0.], DiskBox[{342.946326, 403.960347}, 3]}}, {
+          {Opacity[0.], DiskBox[{366.470097, 416.964764}, 3]}}, {
+          {Opacity[0.], DiskBox[{168.819516, 222.520817}, 3]}}, {
+          {Opacity[0.], DiskBox[{190.465418, 50.426288}, 3]}}, {
+          {Opacity[0.], DiskBox[{183.778807, 43.908763}, 3]}}, {
+          {Opacity[0.], DiskBox[{146.304384, 244.292454}, 3]}}, {
+          {Opacity[0.], DiskBox[{187.362231, 286.189563}, 3]}}, {
+          {Opacity[0.], DiskBox[{202.361013, 289.487017}, 3]}}, {
+          {Opacity[0.], DiskBox[{216.0562, 296.274733}, 3]}}, {
+          {Opacity[0.], DiskBox[{326.039831, 148.018343}, 3]}}, {
+          {Opacity[0.], DiskBox[{283.242702, 231.325216}, 3]}}, {
+          {Opacity[0.], DiskBox[{316.084069, 321.747864}, 3]}}, {
+          {Opacity[0.], DiskBox[{318.104792, 264.695538}, 3]}}, {
+          {Opacity[0.], DiskBox[{213.880236, 120.444067}, 3]}}, {
+          {Opacity[0.], DiskBox[{103.575073, 158.291423}, 3]}}, {
+          {Opacity[0.], DiskBox[{196.422634, 176.649185}, 3]}}, {
+          {Opacity[0.], DiskBox[{253.993859, 42.883218}, 3]}}, {
+          {Opacity[0.], DiskBox[{248.097758, 33.982947}, 3]}}, {
+          {Opacity[0.], DiskBox[{261.512518, 31.951939}, 3]}}, {
+          {Opacity[0.], DiskBox[{214.479638, 18.605149}, 3]}}, {
+          {Opacity[0.], DiskBox[{226.499491, 198.167119}, 3]}}, {
+          {Opacity[0.], DiskBox[{176.880058, 207.62306}, 3]}}, {
+          {Opacity[0.], DiskBox[{172.971557, 271.728868}, 3]}}, {
+          {Opacity[0.], DiskBox[{137.095601, 140.924566}, 3]}}, {
+          {Opacity[0.], DiskBox[{157.04913, 84.238916}, 3]}}, {
+          {Opacity[0.], DiskBox[{279.735605, 262.780239}, 3]}}, {
+          {Opacity[0.], DiskBox[{332.446948, 266.355459}, 3]}}, {
+          {Opacity[0.], DiskBox[{336.262819, 255.209913}, 3]}}, {
+          {Opacity[0.], DiskBox[{225.791649, 180.413322}, 3]}}, {
+          {Opacity[0.], DiskBox[{247.042002, 270.659711}, 3]}}, {
+          {Opacity[0.], DiskBox[{226.236534, 37.468269}, 3]}}, {
+          {Opacity[0.], DiskBox[{302.871724, 290.595143}, 3]}}, {
+          {Opacity[0.], DiskBox[{350.891858, 395.258755}, 3]}}, {
+          {Opacity[0.], DiskBox[{381.794253, 434.971299}, 3]}}, {
+          {Opacity[0.], DiskBox[{260.463786, 252.369676}, 3]}}, {
+          {Opacity[0.], DiskBox[{285.188921, 163.889829}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.212501, 343.967136}, 3]}}, {
+          {Opacity[0.], DiskBox[{363.176298, 222.394535}, 3]}}, {
+          {Opacity[0.], DiskBox[{246.46131, 202.486521}, 3]}}, {
+          {Opacity[0.], DiskBox[{240.522705, 112.939231}, 3]}}, {
+          {Opacity[0.], DiskBox[{306.517028, 304.119902}, 3]}}, {
+          {Opacity[0.], DiskBox[{213.350829, 170.099898}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.497478, 240.763639}, 3]}}, {
+          {Opacity[0.], DiskBox[{67.944964, 180.334881}, 3]}}, {
+          {Opacity[0.], DiskBox[{321.158211, 350.819055}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.801037, 119.808435}, 3]}}, {
+          {Opacity[0.], DiskBox[{291.095437, 253.388553}, 3]}}, {
+          {Opacity[0.], DiskBox[{303.700758, 364.027128}, 3]}}, {
+          {Opacity[0.], DiskBox[{353.798577, 341.777952}, 3]}}, {
+          {Opacity[0.], DiskBox[{378.773337, 288.013984}, 3]}}, {
+          {Opacity[0.], DiskBox[{335.460804, 303.749204}, 3]}}, {
+          {Opacity[0.], DiskBox[{127.369954, 230.82484}, 3]}}, {
+          {Opacity[0.], DiskBox[{321.137133, 381.805081}, 3]}}, {
+          {Opacity[0.], DiskBox[{390.963134, 370.712521}, 3]}}, {
+          {Opacity[0.], DiskBox[{312.234651, 339.803573}, 3]}}}}], {576., -213.6594020183493},
+       ImageScaled[{0.5, 0.5}], {360., 406.9702895587606}]}}, {}},
+  ContentSelectable->True,
+  ImageSize->{773.61328125, Automatic},
+  PlotRangePadding->{6, 5}]], "Output",
+ CellChangeTimes->{{3.708686792172526*^9, 3.708686794099168*^9}, {
+  3.708686824129327*^9, 
+  3.708686874954482*^9}},ExpressionUUID->"4da29f3b-7118-4241-ab5a-\
+cdc6628ef895"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Graphics", "[", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Opacity", "[", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"binarize", "@", "odorASound"}], ")"}], "[", 
+            RowBox[{"[", "c", "]"}], "]"}], "]"}], ",", 
+          RowBox[{"Disk", "[", 
+           RowBox[{
+            RowBox[{"centers", "[", 
+             RowBox[{"[", "c", "]"}], "]"}], ",", "3"}], "]"}]}], "}"}], ",", 
+        
+        RowBox[{"{", 
+         RowBox[{"c", ",", 
+          RowBox[{"Length", "@", "centers"}]}], "}"}]}], "]"}], 
+      "\[IndentingNewLine]", "}"}], "]"}], ",", 
+    RowBox[{"Graphics", "[", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Opacity", "[", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"binarize", "@", "blankSound"}], ")"}], "[", 
+            RowBox[{"[", "c", "]"}], "]"}], "]"}], ",", 
+          RowBox[{"Disk", "[", 
+           RowBox[{
+            RowBox[{"centers", "[", 
+             RowBox[{"[", "c", "]"}], "]"}], ",", "3"}], "]"}]}], "}"}], ",", 
+        
+        RowBox[{"{", 
+         RowBox[{"c", ",", 
+          RowBox[{"Length", "@", "centers"}]}], "}"}]}], "]"}], 
+      "\[IndentingNewLine]", "}"}], "]"}]}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.70868642346292*^9, 3.7086864279404583`*^9}, {
+  3.708686886375193*^9, 3.708686902991921*^9}, {3.708687043915708*^9, 
+  3.708687049143723*^9}, {3.708687080706758*^9, 
+  3.708687085637664*^9}},ExpressionUUID->"98e6715d-2466-4409-a2ab-\
+6728f850e11c"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{InsetBox[
+      GraphicsBox[{{{
+          {Opacity[0.], DiskBox[{367.955528, 375.987649}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.68163, 217.786}, 3]}}, {
+          {Opacity[0.], DiskBox[{388.673329, 260.947536}, 3]}}, {
+          {Opacity[0.], DiskBox[{407.043087, 228.530927}, 3]}}, {
+          {Opacity[0.], DiskBox[{352.826724, 375.769771}, 3]}}, {
+          {Opacity[0.], DiskBox[{245.131716, 315.228631}, 3]}}, {
+          {Opacity[0.], DiskBox[{90.418994, 191.129264}, 3]}}, {
+          {Opacity[0.], DiskBox[{37.088894, 174.433272}, 3]}}, {
+          {Opacity[0.], DiskBox[{149.45458, 392.010313}, 3]}}, {
+          {Opacity[0.], DiskBox[{189.332821, 471.163179}, 3]}}, {
+          {Opacity[0.], DiskBox[{185.67206, 489.79784}, 3]}}, {
+          {Opacity[0.], DiskBox[{210.09697, 399.065369}, 3]}}, {
+          {Opacity[1.], DiskBox[{218.939111, 359.496076}, 3]}}, {
+          {Opacity[0.], DiskBox[{245.008787, 361.496553}, 3]}}, {
+          {Opacity[0.], DiskBox[{157.77674, 116.958867}, 3]}}, {
+          {Opacity[1.], DiskBox[{149.055102, 150.245407}, 3]}}, {
+          {Opacity[1.], DiskBox[{122.490038, 148.787949}, 3]}}, {
+          {Opacity[0.], DiskBox[{132.316881, 163.369915}, 3]}}, {
+          {Opacity[0.], DiskBox[{126.417188, 193.35019}, 3]}}, {
+          {Opacity[0.], DiskBox[{179.001575, 159.749882}, 3]}}, {
+          {Opacity[0.], DiskBox[{162.259508, 207.47545}, 3]}}, {
+          {Opacity[1.], DiskBox[{190.683085, 190.29132}, 3]}}, {
+          {Opacity[0.], DiskBox[{189.548085, 199.065301}, 3]}}, {
+          {Opacity[0.], DiskBox[{192.920571, 71.382433}, 3]}}, {
+          {Opacity[0.], DiskBox[{195.212329, 14.016242}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.651607, 6.824516}, 3]}}, {
+          {Opacity[1.], DiskBox[{417.709976, 316.578342}, 3]}}, {
+          {Opacity[0.], DiskBox[{362.737042, 181.919685}, 3]}}, {
+          {Opacity[0.], DiskBox[{369.471706, 196.543472}, 3]}}, {
+          {Opacity[0.], DiskBox[{389.903644, 187.436719}, 3]}}, {
+          {Opacity[0.], DiskBox[{379.425021, 211.86638}, 3]}}, {
+          {Opacity[1.], DiskBox[{387.774522, 233.052587}, 3]}}, {
+          {Opacity[0.], DiskBox[{393.314278, 214.007231}, 3]}}, {
+          {Opacity[0.], DiskBox[{398.370622, 207.455862}, 3]}}, {
+          {Opacity[0.], DiskBox[{410.15578, 219.327066}, 3]}}, {
+          {Opacity[0.], DiskBox[{412.885285, 240.58386}, 3]}}, {
+          {Opacity[0.], DiskBox[{318.379912, 145.407021}, 3]}}, {
+          {Opacity[1.], 
+           DiskBox[{317.61307471651617, 167.80850536488254}, \
+{3., 3.0000000000000853}]}}, {
+          {Opacity[0.], DiskBox[{317.422119, 171.61962}, 3]}}, {
+          {Opacity[0.], DiskBox[{294.367594, 152.934475}, 3]}}, {
+          {Opacity[0.], DiskBox[{312.313249, 236.893482}, 3]}}, {
+          {Opacity[1.], DiskBox[{215.918123, 83.657448}, 3]}}, {
+          {Opacity[1.], DiskBox[{259.281318, 50.115923}, 3]}}, {
+          {Opacity[0.], DiskBox[{215.038552, 136.885796}, 3]}}, {
+          {Opacity[0.], DiskBox[{219.490736, 151.796746}, 3]}}, {
+          {Opacity[1.], DiskBox[{252.536415, 152.912446}, 3]}}, {
+          {Opacity[0.], DiskBox[{264.595326, 179.963373}, 3]}}, {
+          {Opacity[1.], DiskBox[{232.748395, 238.129293}, 3]}}, {
+          {Opacity[0.], DiskBox[{218.176714, 32.317848}, 3]}}, {
+          {Opacity[1.], DiskBox[{244.128005, 78.787217}, 3]}}, {
+          {Opacity[0.], DiskBox[{231.370646, 84.835987}, 3]}}, {
+          {Opacity[0.], DiskBox[{242.509887, 87.990703}, 3]}}, {
+          {Opacity[0.], DiskBox[{248.768459, 97.748067}, 3]}}, {
+          {Opacity[1.], DiskBox[{261.458425, 75.344189}, 3]}}, {
+          {Opacity[0.], DiskBox[{276.845183, 139.149054}, 3]}}, {
+          {Opacity[0.], DiskBox[{273.996477, 154.187505}, 3]}}, {
+          {Opacity[0.], DiskBox[{329.187693, 215.914421}, 3]}}, {
+          {Opacity[1.], DiskBox[{155.35504, 63.807378}, 3]}}, {
+          {Opacity[0.], DiskBox[{117.505391, 175.563636}, 3]}}, {
+          {Opacity[0.], DiskBox[{339.092803, 245.396907}, 3]}}, {
+          {Opacity[0.], DiskBox[{273.876543, 221.033273}, 3]}}, {
+          {Opacity[0.], DiskBox[{272.578988, 213.146446}, 3]}}, {
+          {Opacity[0.], DiskBox[{213.181669, 45.559408}, 3]}}, {
+          {Opacity[0.], DiskBox[{214.471423, 67.635373}, 3]}}, {
+          {Opacity[0.], DiskBox[{225.486841, 50.406946}, 3]}}, {
+          {Opacity[0.], DiskBox[{232.360889, 38.568496}, 3]}}, {
+          {Opacity[0.], DiskBox[{241.602342, 51.835855}, 3]}}, {
+          {Opacity[0.], DiskBox[{173.328663, 22.266201}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.977478, 84.103512}, 3]}}, {
+          {Opacity[1.], DiskBox[{202.729956, 100.231201}, 3]}}, {
+          {Opacity[0.], DiskBox[{288.848047, 97.402577}, 3]}}, {
+          {Opacity[0.], DiskBox[{314.590612, 76.837159}, 3]}}, {
+          {Opacity[0.], DiskBox[{295.732535, 167.506672}, 3]}}, {
+          {Opacity[0.], DiskBox[{162.456583, 107.585538}, 3]}}, {
+          {Opacity[0.], DiskBox[{170.111011, 145.904003}, 3]}}, {
+          {Opacity[1.], DiskBox[{283.716001, 375.855322}, 3]}}, {
+          {Opacity[0.], DiskBox[{297.884917, 339.034347}, 3]}}, {
+          {Opacity[0.], DiskBox[{328.875759, 352.262455}, 3]}}, {
+          {Opacity[0.], DiskBox[{377.096211, 359.133877}, 3]}}, {
+          {Opacity[0.], DiskBox[{385.064416, 344.251542}, 3]}}, {
+          {Opacity[0.], DiskBox[{364.347182, 246.65703}, 3]}}, {
+          {Opacity[0.], DiskBox[{369.150931, 207.059444}, 3]}}, {
+          {Opacity[0.], DiskBox[{325.646423, 162.164336}, 3]}}, {
+          {Opacity[0.], DiskBox[{316.504498, 153.461477}, 3]}}, {
+          {Opacity[0.], DiskBox[{294.835988, 237.576758}, 3]}}, {
+          {Opacity[0.], DiskBox[{240.574388, 191.092541}, 3]}}, {
+          {Opacity[0.], DiskBox[{237.047037, 204.062023}, 3]}}, {
+          {Opacity[0.], DiskBox[{229.577955, 212.59207}, 3]}}, {
+          {Opacity[0.], DiskBox[{190.999299, 160.328606}, 3]}}, {
+          {Opacity[0.], DiskBox[{198.198282, 165.651025}, 3]}}, {
+          {Opacity[0.], DiskBox[{174.647863, 188.37581}, 3]}}, {
+          {Opacity[0.], DiskBox[{155.739905, 52.723112}, 3]}}, {
+          {Opacity[0.], DiskBox[{155.391379, 25.250982}, 3]}}, {
+          {Opacity[0.], DiskBox[{157.757074, 9.362871}, 3]}}, {
+          {Opacity[0.], DiskBox[{275.647744, 103.723316}, 3]}}, {
+          {Opacity[0.], DiskBox[{339.807232, 215.219986}, 3]}}, {
+          {Opacity[0.], DiskBox[{340.056043, 223.997885}, 3]}}, {
+          {Opacity[0.], DiskBox[{114.763917, 157.516487}, 3]}}, {
+          {Opacity[0.], DiskBox[{147.152176, 127.243851}, 3]}}, {
+          {Opacity[0.], DiskBox[{87.802094, 71.824985}, 3]}}, {
+          {Opacity[0.], DiskBox[{76.184081, 89.032722}, 3]}}, {
+          {Opacity[0.], DiskBox[{163.993022, 174.151773}, 3]}}, {
+          {Opacity[0.], DiskBox[{353.184351, 217.749875}, 3]}}, {
+          {Opacity[0.], DiskBox[{350.205062, 259.522583}, 3]}}, {
+          {Opacity[0.], DiskBox[{362.523745, 257.246596}, 3]}}, {
+          {Opacity[0.], DiskBox[{394.110486, 324.013018}, 3]}}, {
+          {Opacity[0.], DiskBox[{397.526387, 333.836773}, 3]}}, {
+          {Opacity[0.], DiskBox[{397.070458, 402.679973}, 3]}}, {
+          {Opacity[0.], DiskBox[{409.844877, 396.377395}, 3]}}, {
+          {Opacity[0.], DiskBox[{332.84237, 340.229293}, 3]}}, {
+          {Opacity[0.], DiskBox[{324.6669, 341.130152}, 3]}}, {
+          {Opacity[1.], DiskBox[{259.228162, 314.285216}, 3]}}, {
+          {Opacity[1.], DiskBox[{266.896582, 312.093943}, 3]}}, {
+          {Opacity[0.], DiskBox[{396.656979, 385.547025}, 3]}}, {
+          {Opacity[0.], DiskBox[{408.646232, 331.895953}, 3]}}, {
+          {Opacity[0.], DiskBox[{402.650256, 351.955927}, 3]}}, {
+          {Opacity[0.], DiskBox[{413.145506, 374.634008}, 3]}}, {
+          {Opacity[0.], DiskBox[{411.875016, 386.301098}, 3]}}, {
+          {Opacity[0.], DiskBox[{408.80945, 259.0156}, 3]}}, {
+          {Opacity[0.], DiskBox[{404.594187, 408.640931}, 3]}}, {
+          {Opacity[0.], DiskBox[{407.028901, 414.681982}, 3]}}, {
+          {Opacity[0.], DiskBox[{405.25182, 435.744315}, 3]}}, {
+          {Opacity[0.], DiskBox[{414.36174, 421.845792}, 3]}}, {
+          {Opacity[0.], DiskBox[{423.719041, 413.845338}, 3]}}, {
+          {Opacity[1.], DiskBox[{436.691366, 429.094383}, 3]}}, {
+          {Opacity[0.], DiskBox[{336.588395, 476.71919}, 3]}}, {
+          {Opacity[1.], DiskBox[{392.744727, 480.825797}, 3]}}, {
+          {Opacity[0.], DiskBox[{401.998875, 496.981363}, 3]}}, {
+          {Opacity[0.], DiskBox[{411.080154, 499.15451}, 3]}}, {
+          {Opacity[0.], DiskBox[{420.367151, 497.940697}, 3]}}, {
+          {Opacity[0.], DiskBox[{421.105301, 488.994057}, 3]}}, {
+          {Opacity[0.], DiskBox[{424.335407, 479.601674}, 3]}}, {
+          {Opacity[0.], DiskBox[{418.687454, 469.541182}, 3]}}, {
+          {Opacity[0.], DiskBox[{461.836407, 431.923604}, 3]}}, {
+          {Opacity[0.], DiskBox[{455.892609, 445.026278}, 3]}}, {
+          {Opacity[0.], DiskBox[{450.124799, 464.172043}, 3]}}, {
+          {Opacity[0.], DiskBox[{471.90436, 440.069535}, 3]}}, {
+          {Opacity[0.], DiskBox[{210.548103, 195.838135}, 3]}}, {
+          {Opacity[0.], DiskBox[{378.333521, 311.684472}, 3]}}, {
+          {Opacity[0.], DiskBox[{239.548577, 153.186311}, 3]}}, {
+          {Opacity[0.], DiskBox[{247.203751, 143.480894}, 3]}}, {
+          {Opacity[0.], DiskBox[{288.758642, 138.808033}, 3]}}, {
+          {Opacity[0.], DiskBox[{113.446868, 116.573011}, 3]}}, {
+          {Opacity[0.], DiskBox[{134.829274, 114.664664}, 3]}}, {
+          {Opacity[0.], DiskBox[{308.848586, 271.639146}, 3]}}, {
+          {Opacity[0.], DiskBox[{322.263788, 252.532513}, 3]}}, {
+          {Opacity[0.], DiskBox[{362.042945, 390.525161}, 3]}}, {
+          {Opacity[0.], DiskBox[{372.993249, 396.052113}, 3]}}, {
+          {Opacity[0.], DiskBox[{377.566815, 378.662956}, 3]}}, {
+          {Opacity[0.], DiskBox[{385.071813, 389.240253}, 3]}}, {
+          {Opacity[0.], DiskBox[{345.698525, 271.619498}, 3]}}, {
+          {Opacity[0.], DiskBox[{360.961183, 284.766134}, 3]}}, {
+          {Opacity[0.], DiskBox[{288.446022, 79.701162}, 3]}}, {
+          {Opacity[0.], DiskBox[{298.99026, 54.682506}, 3]}}, {
+          {Opacity[1.], DiskBox[{215.593945, 148.345354}, 3]}}, {
+          {Opacity[0.], DiskBox[{383.443096, 405.964648}, 3]}}, {
+          {Opacity[0.], DiskBox[{298.248135, 377.085975}, 3]}}, {
+          {Opacity[0.], DiskBox[{235.731854, 126.304629}, 3]}}, {
+          {Opacity[0.], DiskBox[{297.19977, 361.829955}, 3]}}, {
+          {Opacity[0.], DiskBox[{257.945551, 119.515784}, 3]}}, {
+          {Opacity[0.], DiskBox[{377.141228, 230.982872}, 3]}}, {
+          {Opacity[0.], DiskBox[{367.978113, 236.836253}, 3]}}, {
+          {Opacity[1.], DiskBox[{392.568054, 412.518265}, 3]}}, {
+          {Opacity[0.], DiskBox[{311.83869, 366.633642}, 3]}}, {
+          {Opacity[0.], DiskBox[{320.256974, 365.993932}, 3]}}, {
+          {Opacity[0.], DiskBox[{278.505341, 202.966802}, 3]}}, {
+          {Opacity[0.], DiskBox[{236.824056, 301.740634}, 3]}}, {
+          {Opacity[0.], DiskBox[{296.013021, 328.865139}, 3]}}, {
+          {Opacity[0.], DiskBox[{99.637158, 76.686766}, 3]}}, {
+          {Opacity[0.], DiskBox[{449.537181, 271.049363}, 3]}}, {
+          {Opacity[0.], DiskBox[{174.963169, 136.912637}, 3]}}, {
+          {Opacity[0.], DiskBox[{165.337411, 136.958679}, 3]}}, {
+          {Opacity[1.], DiskBox[{110.610281, 56.065077}, 3]}}, {
+          {Opacity[0.], DiskBox[{116.782598, 57.923176}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.96646, 60.616288}, 3]}}, {
+          {Opacity[0.], DiskBox[{271.328182, 48.607825}, 3]}}, {
+          {Opacity[0.], DiskBox[{284.360289, 388.9975}, 3]}}, {
+          {Opacity[0.], DiskBox[{317.301607, 302.931996}, 3]}}, {
+          {Opacity[0.], DiskBox[{392.428027, 319.317016}, 3]}}, {
+          {Opacity[0.], DiskBox[{342.296182, 386.513072}, 3]}}, {
+          {Opacity[0.], DiskBox[{205.903323, 148.666891}, 3]}}, {
+          {Opacity[0.], DiskBox[{250.58548, 169.751138}, 3]}}, {
+          {Opacity[0.], DiskBox[{353.692874, 297.709114}, 3]}}, {
+          {Opacity[0.], DiskBox[{360.590949, 306.586832}, 3]}}, {
+          {Opacity[0.], DiskBox[{263.233745, 287.721639}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.574398, 243.551575}, 3]}}, {
+          {Opacity[1.], DiskBox[{148.484968, 143.538404}, 3]}}, {
+          {Opacity[0.], DiskBox[{182.780571, 72.809642}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.537778, 193.632461}, 3]}}, {
+          {Opacity[0.], DiskBox[{330.495204, 234.329968}, 3]}}, {
+          {Opacity[0.], DiskBox[{350.028629, 200.672392}, 3]}}, {
+          {Opacity[0.], DiskBox[{256.94027, 469.428257}, 3]}}, {
+          {Opacity[0.], DiskBox[{289.225597, 308.204634}, 3]}}, {
+          {Opacity[0.], DiskBox[{286.101253, 356.384798}, 3]}}, {
+          {Opacity[0.], DiskBox[{342.946326, 403.960347}, 3]}}, {
+          {Opacity[0.], DiskBox[{366.470097, 416.964764}, 3]}}, {
+          {Opacity[0.], DiskBox[{168.819516, 222.520817}, 3]}}, {
+          {Opacity[0.], DiskBox[{190.465418, 50.426288}, 3]}}, {
+          {Opacity[0.], DiskBox[{183.778807, 43.908763}, 3]}}, {
+          {Opacity[0.], DiskBox[{146.304384, 244.292454}, 3]}}, {
+          {Opacity[0.], DiskBox[{187.362231, 286.189563}, 3]}}, {
+          {Opacity[0.], DiskBox[{202.361013, 289.487017}, 3]}}, {
+          {Opacity[0.], DiskBox[{216.0562, 296.274733}, 3]}}, {
+          {Opacity[0.], DiskBox[{326.039831, 148.018343}, 3]}}, {
+          {Opacity[0.], DiskBox[{283.242702, 231.325216}, 3]}}, {
+          {Opacity[0.], DiskBox[{316.084069, 321.747864}, 3]}}, {
+          {Opacity[0.], DiskBox[{318.104792, 264.695538}, 3]}}, {
+          {Opacity[0.], DiskBox[{213.880236, 120.444067}, 3]}}, {
+          {Opacity[0.], DiskBox[{103.575073, 158.291423}, 3]}}, {
+          {Opacity[0.], DiskBox[{196.422634, 176.649185}, 3]}}, {
+          {Opacity[0.], DiskBox[{253.993859, 42.883218}, 3]}}, {
+          {Opacity[0.], DiskBox[{248.097758, 33.982947}, 3]}}, {
+          {Opacity[0.], DiskBox[{261.512518, 31.951939}, 3]}}, {
+          {Opacity[0.], DiskBox[{214.479638, 18.605149}, 3]}}, {
+          {Opacity[0.], DiskBox[{226.499491, 198.167119}, 3]}}, {
+          {Opacity[0.], DiskBox[{176.880058, 207.62306}, 3]}}, {
+          {Opacity[0.], DiskBox[{172.971557, 271.728868}, 3]}}, {
+          {Opacity[0.], DiskBox[{137.095601, 140.924566}, 3]}}, {
+          {Opacity[0.], DiskBox[{157.04913, 84.238916}, 3]}}, {
+          {Opacity[0.], DiskBox[{279.735605, 262.780239}, 3]}}, {
+          {Opacity[0.], DiskBox[{332.446948, 266.355459}, 3]}}, {
+          {Opacity[0.], DiskBox[{336.262819, 255.209913}, 3]}}, {
+          {Opacity[0.], DiskBox[{225.791649, 180.413322}, 3]}}, {
+          {Opacity[0.], DiskBox[{247.042002, 270.659711}, 3]}}, {
+          {Opacity[0.], DiskBox[{226.236534, 37.468269}, 3]}}, {
+          {Opacity[0.], DiskBox[{302.871724, 290.595143}, 3]}}, {
+          {Opacity[0.], DiskBox[{350.891858, 395.258755}, 3]}}, {
+          {Opacity[0.], DiskBox[{381.794253, 434.971299}, 3]}}, {
+          {Opacity[0.], DiskBox[{260.463786, 252.369676}, 3]}}, {
+          {Opacity[0.], DiskBox[{285.188921, 163.889829}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.212501, 343.967136}, 3]}}, {
+          {Opacity[0.], DiskBox[{363.176298, 222.394535}, 3]}}, {
+          {Opacity[0.], DiskBox[{246.46131, 202.486521}, 3]}}, {
+          {Opacity[0.], DiskBox[{240.522705, 112.939231}, 3]}}, {
+          {Opacity[0.], DiskBox[{306.517028, 304.119902}, 3]}}, {
+          {Opacity[0.], DiskBox[{213.350829, 170.099898}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.497478, 240.763639}, 3]}}, {
+          {Opacity[0.], DiskBox[{67.944964, 180.334881}, 3]}}, {
+          {Opacity[0.], DiskBox[{321.158211, 350.819055}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.801037, 119.808435}, 3]}}, {
+          {Opacity[0.], DiskBox[{291.095437, 253.388553}, 3]}}, {
+          {Opacity[0.], DiskBox[{303.700758, 364.027128}, 3]}}, {
+          {Opacity[0.], DiskBox[{353.798577, 341.777952}, 3]}}, {
+          {Opacity[0.], DiskBox[{378.773337, 288.013984}, 3]}}, {
+          {Opacity[0.], DiskBox[{335.460804, 303.749204}, 3]}}, {
+          {Opacity[0.], DiskBox[{127.369954, 230.82484}, 3]}}, {
+          {Opacity[0.], DiskBox[{321.137133, 381.805081}, 3]}}, {
+          {Opacity[0.], DiskBox[{390.963134, 370.712521}, 3]}}, {
+          {Opacity[0.], DiskBox[{312.234651, 339.803573}, 3]}}}},
+       ImagePadding->{{0., 1.}, {1., 0.}},
+       PlotRange->{{24.905238458333336`, 484.08801554166666`}, {-4.99179332, 
+        510.97081932000003`}},
+       PlotRangePadding->Automatic], {192., -213.6594020183493}, 
+      ImageScaled[{0.5, 0.5}], {360., 406.9702895587606}], InsetBox[
+      GraphicsBox[{{{
+          {Opacity[0.], DiskBox[{367.955528, 375.987649}, 3]}}, {
+          {Opacity[1.], DiskBox[{255.68163, 217.786}, 3]}}, {
+          {Opacity[0.], DiskBox[{388.673329, 260.947536}, 3]}}, {
+          {Opacity[0.], DiskBox[{407.043087, 228.530927}, 3]}}, {
+          {Opacity[0.], DiskBox[{352.826724, 375.769771}, 3]}}, {
+          {Opacity[1.], DiskBox[{245.131716, 315.228631}, 3]}}, {
+          {Opacity[0.], DiskBox[{90.418994, 191.129264}, 3]}}, {
+          {Opacity[0.], DiskBox[{37.088894, 174.433272}, 3]}}, {
+          {Opacity[0.], DiskBox[{149.45458, 392.010313}, 3]}}, {
+          {Opacity[0.], DiskBox[{189.332821, 471.163179}, 3]}}, {
+          {Opacity[1.], DiskBox[{185.67206, 489.79784}, 3]}}, {
+          {Opacity[0.], DiskBox[{210.09697, 399.065369}, 3]}}, {
+          {Opacity[0.], DiskBox[{218.939111, 359.496076}, 3]}}, {
+          {Opacity[0.], DiskBox[{245.008787, 361.496553}, 3]}}, {
+          {Opacity[0.], DiskBox[{157.77674, 116.958867}, 3]}}, {
+          {Opacity[1.], DiskBox[{149.055102, 150.245407}, 3]}}, {
+          {Opacity[0.], DiskBox[{122.490038, 148.787949}, 3]}}, {
+          {Opacity[0.], DiskBox[{132.316881, 163.369915}, 3]}}, {
+          {Opacity[0.], DiskBox[{126.417188, 193.35019}, 3]}}, {
+          {Opacity[0.], DiskBox[{179.001575, 159.749882}, 3]}}, {
+          {Opacity[1.], DiskBox[{162.259508, 207.47545}, 3]}}, {
+          {Opacity[0.], DiskBox[{190.683085, 190.29132}, 3]}}, {
+          {Opacity[0.], DiskBox[{189.548085, 199.065301}, 3]}}, {
+          {Opacity[0.], DiskBox[{192.920571, 71.382433}, 3]}}, {
+          {Opacity[0.], DiskBox[{195.212329, 14.016242}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.651607, 6.824516}, 3]}}, {
+          {Opacity[0.], DiskBox[{417.709976, 316.578342}, 3]}}, {
+          {Opacity[0.], DiskBox[{362.737042, 181.919685}, 3]}}, {
+          {Opacity[0.], DiskBox[{369.471706, 196.543472}, 3]}}, {
+          {Opacity[0.], DiskBox[{389.903644, 187.436719}, 3]}}, {
+          {Opacity[0.], DiskBox[{379.425021, 211.86638}, 3]}}, {
+          {Opacity[1.], DiskBox[{387.774522, 233.052587}, 3]}}, {
+          {Opacity[0.], DiskBox[{393.314278, 214.007231}, 3]}}, {
+          {Opacity[0.], DiskBox[{398.370622, 207.455862}, 3]}}, {
+          {Opacity[0.], DiskBox[{410.15578, 219.327066}, 3]}}, {
+          {Opacity[0.], DiskBox[{412.885285, 240.58386}, 3]}}, {
+          {Opacity[0.], DiskBox[{318.379912, 145.407021}, 3]}}, {
+          {Opacity[1.], DiskBox[{311.83366, 165.387456}, 3]}}, {
+          {Opacity[0.], DiskBox[{317.422119, 171.61962}, 3]}}, {
+          {Opacity[0.], DiskBox[{294.367594, 152.934475}, 3]}}, {
+          {Opacity[0.], DiskBox[{312.313249, 236.893482}, 3]}}, {
+          {Opacity[0.], DiskBox[{215.918123, 83.657448}, 3]}}, {
+          {Opacity[0.], DiskBox[{259.281318, 50.115923}, 3]}}, {
+          {Opacity[0.], DiskBox[{215.038552, 136.885796}, 3]}}, {
+          {Opacity[0.], DiskBox[{219.490736, 151.796746}, 3]}}, {
+          {Opacity[0.], DiskBox[{252.536415, 152.912446}, 3]}}, {
+          {Opacity[0.], DiskBox[{264.595326, 179.963373}, 3]}}, {
+          {Opacity[0.], DiskBox[{232.748395, 238.129293}, 3]}}, {
+          {Opacity[0.], DiskBox[{218.176714, 32.317848}, 3]}}, {
+          {Opacity[0.], DiskBox[{244.128005, 78.787217}, 3]}}, {
+          {Opacity[0.], DiskBox[{231.370646, 84.835987}, 3]}}, {
+          {Opacity[0.], DiskBox[{242.509887, 87.990703}, 3]}}, {
+          {Opacity[0.], DiskBox[{248.768459, 97.748067}, 3]}}, {
+          {Opacity[0.], DiskBox[{261.458425, 75.344189}, 3]}}, {
+          {Opacity[0.], DiskBox[{276.845183, 139.149054}, 3]}}, {
+          {Opacity[0.], DiskBox[{273.996477, 154.187505}, 3]}}, {
+          {Opacity[0.], DiskBox[{329.187693, 215.914421}, 3]}}, {
+          {Opacity[0.], DiskBox[{155.35504, 63.807378}, 3]}}, {
+          {Opacity[0.], DiskBox[{117.505391, 175.563636}, 3]}}, {
+          {Opacity[1.], DiskBox[{339.092803, 245.396907}, 3]}}, {
+          {Opacity[0.], DiskBox[{273.876543, 221.033273}, 3]}}, {
+          {Opacity[0.], DiskBox[{272.578988, 213.146446}, 3]}}, {
+          {Opacity[0.], DiskBox[{213.181669, 45.559408}, 3]}}, {
+          {Opacity[0.], DiskBox[{214.471423, 67.635373}, 3]}}, {
+          {Opacity[0.], DiskBox[{225.486841, 50.406946}, 3]}}, {
+          {Opacity[0.], DiskBox[{232.360889, 38.568496}, 3]}}, {
+          {Opacity[0.], DiskBox[{241.602342, 51.835855}, 3]}}, {
+          {Opacity[0.], DiskBox[{173.328663, 22.266201}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.977478, 84.103512}, 3]}}, {
+          {Opacity[0.], DiskBox[{202.729956, 100.231201}, 3]}}, {
+          {Opacity[1.], DiskBox[{288.848047, 97.402577}, 3]}}, {
+          {Opacity[0.], DiskBox[{314.590612, 76.837159}, 3]}}, {
+          {Opacity[0.], DiskBox[{295.732535, 167.506672}, 3]}}, {
+          {Opacity[0.], DiskBox[{162.456583, 107.585538}, 3]}}, {
+          {Opacity[0.], DiskBox[{170.111011, 145.904003}, 3]}}, {
+          {Opacity[0.], DiskBox[{283.716001, 375.855322}, 3]}}, {
+          {Opacity[0.], DiskBox[{297.884917, 339.034347}, 3]}}, {
+          {Opacity[0.], DiskBox[{328.875759, 352.262455}, 3]}}, {
+          {Opacity[0.], DiskBox[{377.096211, 359.133877}, 3]}}, {
+          {Opacity[0.], DiskBox[{385.064416, 344.251542}, 3]}}, {
+          {Opacity[0.], DiskBox[{364.347182, 246.65703}, 3]}}, {
+          {Opacity[0.], DiskBox[{369.150931, 207.059444}, 3]}}, {
+          {Opacity[0.], DiskBox[{325.646423, 162.164336}, 3]}}, {
+          {Opacity[1.], DiskBox[{316.504498, 153.461477}, 3]}}, {
+          {Opacity[0.], DiskBox[{294.835988, 237.576758}, 3]}}, {
+          {Opacity[0.], DiskBox[{240.574388, 191.092541}, 3]}}, {
+          {Opacity[0.], DiskBox[{237.047037, 204.062023}, 3]}}, {
+          {Opacity[0.], DiskBox[{229.577955, 212.59207}, 3]}}, {
+          {Opacity[1.], DiskBox[{190.999299, 160.328606}, 3]}}, {
+          {Opacity[0.], DiskBox[{198.198282, 165.651025}, 3]}}, {
+          {Opacity[0.], DiskBox[{174.647863, 188.37581}, 3]}}, {
+          {Opacity[0.], DiskBox[{155.739905, 52.723112}, 3]}}, {
+          {Opacity[0.], DiskBox[{155.391379, 25.250982}, 3]}}, {
+          {Opacity[0.], DiskBox[{157.757074, 9.362871}, 3]}}, {
+          {Opacity[0.], DiskBox[{275.647744, 103.723316}, 3]}}, {
+          {Opacity[0.], DiskBox[{339.807232, 215.219986}, 3]}}, {
+          {Opacity[0.], DiskBox[{340.056043, 223.997885}, 3]}}, {
+          {Opacity[0.], DiskBox[{114.763917, 157.516487}, 3]}}, {
+          {Opacity[0.], DiskBox[{147.152176, 127.243851}, 3]}}, {
+          {Opacity[0.], DiskBox[{87.802094, 71.824985}, 3]}}, {
+          {Opacity[0.], DiskBox[{76.184081, 89.032722}, 3]}}, {
+          {Opacity[0.], DiskBox[{163.993022, 174.151773}, 3]}}, {
+          {Opacity[1.], DiskBox[{353.184351, 217.749875}, 3]}}, {
+          {Opacity[0.], DiskBox[{350.205062, 259.522583}, 3]}}, {
+          {Opacity[0.], DiskBox[{362.523745, 257.246596}, 3]}}, {
+          {Opacity[0.], DiskBox[{394.110486, 324.013018}, 3]}}, {
+          {Opacity[0.], DiskBox[{397.526387, 333.836773}, 3]}}, {
+          {Opacity[0.], DiskBox[{397.070458, 402.679973}, 3]}}, {
+          {Opacity[0.], DiskBox[{409.844877, 396.377395}, 3]}}, {
+          {Opacity[0.], DiskBox[{332.84237, 340.229293}, 3]}}, {
+          {Opacity[0.], DiskBox[{324.6669, 341.130152}, 3]}}, {
+          {Opacity[0.], DiskBox[{259.228162, 314.285216}, 3]}}, {
+          {Opacity[0.], DiskBox[{266.896582, 312.093943}, 3]}}, {
+          {Opacity[0.], DiskBox[{396.656979, 385.547025}, 3]}}, {
+          {Opacity[0.], DiskBox[{408.646232, 331.895953}, 3]}}, {
+          {Opacity[0.], DiskBox[{402.650256, 351.955927}, 3]}}, {
+          {Opacity[0.], DiskBox[{413.145506, 374.634008}, 3]}}, {
+          {Opacity[0.], DiskBox[{411.875016, 386.301098}, 3]}}, {
+          {Opacity[0.], DiskBox[{408.80945, 259.0156}, 3]}}, {
+          {Opacity[0.], DiskBox[{404.594187, 408.640931}, 3]}}, {
+          {Opacity[0.], DiskBox[{407.028901, 414.681982}, 3]}}, {
+          {Opacity[1.], DiskBox[{405.25182, 435.744315}, 3]}}, {
+          {Opacity[1.], DiskBox[{414.36174, 421.845792}, 3]}}, {
+          {Opacity[0.], DiskBox[{423.719041, 413.845338}, 3]}}, {
+          {Opacity[0.], DiskBox[{436.691366, 429.094383}, 3]}}, {
+          {Opacity[0.], DiskBox[{336.588395, 476.71919}, 3]}}, {
+          {Opacity[0.], DiskBox[{392.744727, 480.825797}, 3]}}, {
+          {Opacity[0.], DiskBox[{401.998875, 496.981363}, 3]}}, {
+          {Opacity[0.], DiskBox[{411.080154, 499.15451}, 3]}}, {
+          {Opacity[0.], DiskBox[{420.367151, 497.940697}, 3]}}, {
+          {Opacity[0.], DiskBox[{421.105301, 488.994057}, 3]}}, {
+          {Opacity[0.], DiskBox[{424.335407, 479.601674}, 3]}}, {
+          {Opacity[0.], DiskBox[{418.687454, 469.541182}, 3]}}, {
+          {Opacity[0.], DiskBox[{461.836407, 431.923604}, 3]}}, {
+          {Opacity[0.], DiskBox[{455.892609, 445.026278}, 3]}}, {
+          {Opacity[0.], DiskBox[{450.124799, 464.172043}, 3]}}, {
+          {Opacity[0.], DiskBox[{471.90436, 440.069535}, 3]}}, {
+          {Opacity[0.], DiskBox[{210.548103, 195.838135}, 3]}}, {
+          {Opacity[0.], DiskBox[{378.333521, 311.684472}, 3]}}, {
+          {Opacity[0.], DiskBox[{239.548577, 153.186311}, 3]}}, {
+          {Opacity[0.], DiskBox[{247.203751, 143.480894}, 3]}}, {
+          {Opacity[0.], DiskBox[{288.758642, 138.808033}, 3]}}, {
+          {Opacity[0.], DiskBox[{113.446868, 116.573011}, 3]}}, {
+          {Opacity[0.], DiskBox[{134.829274, 114.664664}, 3]}}, {
+          {Opacity[0.], DiskBox[{308.848586, 271.639146}, 3]}}, {
+          {Opacity[0.], DiskBox[{322.263788, 252.532513}, 3]}}, {
+          {Opacity[0.], DiskBox[{362.042945, 390.525161}, 3]}}, {
+          {Opacity[0.], DiskBox[{372.993249, 396.052113}, 3]}}, {
+          {Opacity[0.], DiskBox[{377.566815, 378.662956}, 3]}}, {
+          {Opacity[0.], DiskBox[{385.071813, 389.240253}, 3]}}, {
+          {Opacity[0.], DiskBox[{345.698525, 271.619498}, 3]}}, {
+          {Opacity[0.], DiskBox[{360.961183, 284.766134}, 3]}}, {
+          {Opacity[0.], DiskBox[{288.446022, 79.701162}, 3]}}, {
+          {Opacity[0.], DiskBox[{298.99026, 54.682506}, 3]}}, {
+          {Opacity[0.], DiskBox[{215.593945, 148.345354}, 3]}}, {
+          {Opacity[0.], DiskBox[{383.443096, 405.964648}, 3]}}, {
+          {Opacity[1.], DiskBox[{298.248135, 377.085975}, 3]}}, {
+          {Opacity[0.], DiskBox[{235.731854, 126.304629}, 3]}}, {
+          {Opacity[0.], DiskBox[{297.19977, 361.829955}, 3]}}, {
+          {Opacity[0.], DiskBox[{257.945551, 119.515784}, 3]}}, {
+          {Opacity[0.], DiskBox[{377.141228, 230.982872}, 3]}}, {
+          {Opacity[0.], DiskBox[{367.978113, 236.836253}, 3]}}, {
+          {Opacity[0.], DiskBox[{392.568054, 412.518265}, 3]}}, {
+          {Opacity[0.], DiskBox[{311.83869, 366.633642}, 3]}}, {
+          {Opacity[0.], DiskBox[{320.256974, 365.993932}, 3]}}, {
+          {Opacity[0.], DiskBox[{278.505341, 202.966802}, 3]}}, {
+          {Opacity[0.], DiskBox[{236.824056, 301.740634}, 3]}}, {
+          {Opacity[0.], DiskBox[{296.013021, 328.865139}, 3]}}, {
+          {Opacity[0.], DiskBox[{99.637158, 76.686766}, 3]}}, {
+          {Opacity[0.], DiskBox[{449.537181, 271.049363}, 3]}}, {
+          {Opacity[0.], DiskBox[{174.963169, 136.912637}, 3]}}, {
+          {Opacity[0.], DiskBox[{165.337411, 136.958679}, 3]}}, {
+          {Opacity[0.], DiskBox[{110.610281, 56.065077}, 3]}}, {
+          {Opacity[0.], DiskBox[{116.782598, 57.923176}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.96646, 60.616288}, 3]}}, {
+          {Opacity[1.], DiskBox[{271.328182, 48.607825}, 3]}}, {
+          {Opacity[0.], DiskBox[{284.360289, 388.9975}, 3]}}, {
+          {Opacity[0.], DiskBox[{317.301607, 302.931996}, 3]}}, {
+          {Opacity[0.], DiskBox[{392.428027, 319.317016}, 3]}}, {
+          {Opacity[0.], DiskBox[{342.296182, 386.513072}, 3]}}, {
+          {Opacity[0.], DiskBox[{205.903323, 148.666891}, 3]}}, {
+          {Opacity[0.], DiskBox[{250.58548, 169.751138}, 3]}}, {
+          {Opacity[0.], DiskBox[{353.692874, 297.709114}, 3]}}, {
+          {Opacity[0.], DiskBox[{360.590949, 306.586832}, 3]}}, {
+          {Opacity[0.], DiskBox[{263.233745, 287.721639}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.574398, 243.551575}, 3]}}, {
+          {Opacity[1.], DiskBox[{148.484968, 143.538404}, 3]}}, {
+          {Opacity[0.], DiskBox[{182.780571, 72.809642}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.537778, 193.632461}, 3]}}, {
+          {Opacity[0.], DiskBox[{330.495204, 234.329968}, 3]}}, {
+          {Opacity[0.], DiskBox[{350.028629, 200.672392}, 3]}}, {
+          {Opacity[0.], DiskBox[{256.94027, 469.428257}, 3]}}, {
+          {Opacity[0.], DiskBox[{289.225597, 308.204634}, 3]}}, {
+          {Opacity[0.], DiskBox[{286.101253, 356.384798}, 3]}}, {
+          {Opacity[0.], DiskBox[{342.946326, 403.960347}, 3]}}, {
+          {Opacity[0.], DiskBox[{366.470097, 416.964764}, 3]}}, {
+          {Opacity[0.], DiskBox[{168.819516, 222.520817}, 3]}}, {
+          {Opacity[0.], DiskBox[{190.465418, 50.426288}, 3]}}, {
+          {Opacity[0.], DiskBox[{183.778807, 43.908763}, 3]}}, {
+          {Opacity[0.], DiskBox[{146.304384, 244.292454}, 3]}}, {
+          {Opacity[0.], DiskBox[{187.362231, 286.189563}, 3]}}, {
+          {Opacity[0.], DiskBox[{202.361013, 289.487017}, 3]}}, {
+          {Opacity[0.], DiskBox[{216.0562, 296.274733}, 3]}}, {
+          {Opacity[0.], DiskBox[{326.039831, 148.018343}, 3]}}, {
+          {Opacity[0.], DiskBox[{283.242702, 231.325216}, 3]}}, {
+          {Opacity[0.], DiskBox[{316.084069, 321.747864}, 3]}}, {
+          {Opacity[0.], DiskBox[{318.104792, 264.695538}, 3]}}, {
+          {Opacity[0.], DiskBox[{213.880236, 120.444067}, 3]}}, {
+          {Opacity[0.], DiskBox[{103.575073, 158.291423}, 3]}}, {
+          {Opacity[0.], DiskBox[{196.422634, 176.649185}, 3]}}, {
+          {Opacity[0.], DiskBox[{253.993859, 42.883218}, 3]}}, {
+          {Opacity[0.], DiskBox[{248.097758, 33.982947}, 3]}}, {
+          {Opacity[0.], DiskBox[{261.512518, 31.951939}, 3]}}, {
+          {Opacity[0.], DiskBox[{214.479638, 18.605149}, 3]}}, {
+          {Opacity[0.], DiskBox[{226.499491, 198.167119}, 3]}}, {
+          {Opacity[0.], DiskBox[{176.880058, 207.62306}, 3]}}, {
+          {Opacity[0.], DiskBox[{172.971557, 271.728868}, 3]}}, {
+          {Opacity[0.], DiskBox[{137.095601, 140.924566}, 3]}}, {
+          {Opacity[0.], DiskBox[{157.04913, 84.238916}, 3]}}, {
+          {Opacity[0.], DiskBox[{279.735605, 262.780239}, 3]}}, {
+          {Opacity[0.], DiskBox[{332.446948, 266.355459}, 3]}}, {
+          {Opacity[0.], DiskBox[{336.262819, 255.209913}, 3]}}, {
+          {Opacity[0.], DiskBox[{225.791649, 180.413322}, 3]}}, {
+          {Opacity[0.], DiskBox[{247.042002, 270.659711}, 3]}}, {
+          {Opacity[0.], DiskBox[{226.236534, 37.468269}, 3]}}, {
+          {Opacity[0.], DiskBox[{302.871724, 290.595143}, 3]}}, {
+          {Opacity[0.], DiskBox[{350.891858, 395.258755}, 3]}}, {
+          {Opacity[0.], DiskBox[{381.794253, 434.971299}, 3]}}, {
+          {Opacity[0.], DiskBox[{260.463786, 252.369676}, 3]}}, {
+          {Opacity[0.], DiskBox[{285.188921, 163.889829}, 3]}}, {
+          {Opacity[0.], DiskBox[{191.212501, 343.967136}, 3]}}, {
+          {Opacity[0.], DiskBox[{363.176298, 222.394535}, 3]}}, {
+          {Opacity[0.], DiskBox[{246.46131, 202.486521}, 3]}}, {
+          {Opacity[0.], DiskBox[{240.522705, 112.939231}, 3]}}, {
+          {Opacity[0.], DiskBox[{306.517028, 304.119902}, 3]}}, {
+          {Opacity[0.], DiskBox[{213.350829, 170.099898}, 3]}}, {
+          {Opacity[0.], DiskBox[{255.497478, 240.763639}, 3]}}, {
+          {Opacity[0.], DiskBox[{67.944964, 180.334881}, 3]}}, {
+          {Opacity[0.], DiskBox[{321.158211, 350.819055}, 3]}}, {
+          {Opacity[1.], DiskBox[{191.801037, 119.808435}, 3]}}, {
+          {Opacity[0.], DiskBox[{291.095437, 253.388553}, 3]}}, {
+          {Opacity[0.], DiskBox[{303.700758, 364.027128}, 3]}}, {
+          {Opacity[0.], DiskBox[{353.798577, 341.777952}, 3]}}, {
+          {Opacity[0.], DiskBox[{378.773337, 288.013984}, 3]}}, {
+          {Opacity[0.], DiskBox[{335.460804, 303.749204}, 3]}}, {
+          {Opacity[0.], DiskBox[{127.369954, 230.82484}, 3]}}, {
+          {Opacity[0.], DiskBox[{321.137133, 381.805081}, 3]}}, {
+          {Opacity[0.], DiskBox[{390.963134, 370.712521}, 3]}}, {
+          {Opacity[0.], DiskBox[{312.234651, 339.803573}, 3]}}}}], {576., -213.6594020183493},
+       ImageScaled[{0.5, 0.5}], {360., 406.9702895587606}]}}, {}},
+  ContentSelectable->True,
+  ImageSize->{Automatic, 474.0972327851671},
+  PlotRangePadding->{6, 5}]], "Input",
+ CellChangeTimes->{{3.708687117464137*^9, 
+  3.708687118817227*^9}},ExpressionUUID->"445e76b4-69d3-4786-ac1c-\
+88d87bc6b8c1"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["odorASound"], "Input",
+ CellChangeTimes->{{3.70868630852549*^9, 
+  3.708686309137319*^9}},ExpressionUUID->"08767275-b45f-48f6-a9f5-\
+c3e46b2f74ab"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.0008558416072231864`", ",", "0.`", ",", "0.`", ",", 
+   "0.002717206840000957`", ",", "0.00011912225705329151`", ",", 
+   "0.0010080351021527492`", ",", "0.`", ",", "0.0014583333333333332`", ",", 
+   "0.`", ",", "0.0009454922240389369`", ",", "0.0011782550782550782`", ",", 
+   "0.000254524886877828`", ",", "0.011497158857014307`", ",", 
+   "0.0002692307692307693`", ",", "0.0003572874493927128`", ",", 
+   "0.07395790934750746`", ",", "0.01761901603075245`", ",", 
+   "0.001631654826082071`", ",", "0.0011534648290941192`", ",", 
+   "0.0006089528118939885`", ",", "0.0035796402596393662`", ",", 
+   "0.020206026289860162`", ",", "0.`", ",", "0.0003235190097259062`", ",", 
+   "0.0002521008403361345`", ",", "0.001109570920135936`", ",", 
+   "0.07762382760079793`", ",", "0.0001944444444444443`", ",", 
+   "0.0008051009877635267`", ",", "0.0005456932773109243`", ",", 
+   "0.0004503662344442889`", ",", "0.0175889619533831`", ",", 
+   "0.001435942821387195`", ",", "0.`", ",", "0.`", ",", 
+   "0.00021491620152334426`", ",", "0.00008333333333333336`", ",", 
+   "0.036679362392022775`", ",", "0.0021826007326007325`", ",", 
+   "0.001363939464674759`", ",", "0.006690252220477104`", ",", 
+   "0.06045758926974248`", ",", "0.021890020970827363`", ",", 
+   "0.0010329230954230955`", ",", "0.001004346485505906`", ",", 
+   "0.018512130230213437`", ",", "0.0027922542344697076`", ",", 
+   "0.04444509546706857`", ",", "0.0002462023270846798`", ",", 
+   "0.021548358516503635`", ",", "0.001896844333931425`", ",", 
+   "0.0013353846153846152`", ",", "0.00037624913785904503`", ",", 
+   "0.0930149772562373`", ",", "0.`", ",", "0.0015641922576907098`", ",", 
+   "0.0004604459867617764`", ",", "0.0569159567759607`", ",", "0.`", ",", 
+   "0.0004459876543209876`", ",", "0.0001243601714189949`", ",", 
+   "0.000614806246385194`", ",", "0.0002535087719298244`", ",", 
+   "0.0024135495137960787`", ",", "0.00024284927646272205`", ",", "0.`", ",", 
+   "0.0008197539244477632`", ",", "0.`", ",", "0.`", ",", 
+   "0.08412436840958434`", ",", "0.0001944444444444443`", ",", 
+   "0.002794466491273013`", ",", "0.0009542160625751954`", ",", "0.`", ",", 
+   "0.000711579898231482`", ",", "0.020823365637199696`", ",", "0.`", ",", 
+   "0.0013442491461067316`", ",", "0.0004750915750915751`", ",", "0.`", ",", 
+   "0.`", ",", "0.`", ",", "0.`", ",", "0.008388940451568535`", ",", 
+   "0.0006515837104072397`", ",", "0.0004762443438914027`", ",", "0.`", ",", 
+   "0.00018681318681318686`", ",", "0.`", ",", "0.0010703556556962133`", ",", 
+   "0.`", ",", "0.`", ",", "0.`", ",", "0.0008091836734693878`", ",", 
+   "0.0015118124565492988`", ",", "0.`", ",", "0.0012810698073855969`", ",", 
+   "0.`", ",", "0.002665304396270037`", ",", "0.003372488116554164`", ",", 
+   "0.0005074029611844739`", ",", "0.0007452376268233046`", ",", "0.`", ",", 
+   "0.`", ",", "0.00013392857142857144`", ",", "0.0010193043161537056`", ",", 
+   "0.00007142857142857149`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+   ",", "0.014798758529540455`", ",", "0.01602882164197957`", ",", 
+   "0.0001868131868131868`", ",", "0.0002521008403361345`", ",", "0.`", ",", 
+   "0.0011836990351696227`", ",", "0.`", ",", "0.`", ",", 
+   "0.0003943163694359867`", ",", "0.0010453350570997627`", ",", 
+   "0.0012222575266524658`", ",", "0.`", ",", "0.0009687500000000002`", ",", 
+   "0.012876731427144943`", ",", "0.0015089386361832177`", ",", 
+   "0.04285866506402316`", ",", "0.0005200603318250379`", ",", "0.`", ",", 
+   "0.006981550031584476`", ",", "0.0002714932126696832`", ",", "0.`", ",", 
+   "0.00019607843137254912`", ",", "0.0014147975567956514`", ",", 
+   "0.000430354566213244`", ",", "0.`", ",", "0.0006084876222175992`", ",", 
+   "0.`", ",", "0.00017857142857142854`", ",", "0.0007950191805908684`", ",", 
+   "0.0012265579814921916`", ",", "0.00020361990950226245`", ",", "0.`", ",", 
+   "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.00029281045751633977`", 
+   ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+   "0.0007853767147884796`", ",", "0.0007058823529411768`", ",", 
+   "0.010331612940656763`", ",", "0.`", ",", "0.0003571428571428571`", ",", 
+   "0.`", ",", "0.0016034716086988712`", ",", "0.000215311004784689`", ",", 
+   "0.`", ",", "0.0016770179225536368`", ",", "0.0523688590918779`", ",", 
+   "0.00025552302368911367`", ",", "0.`", ",", "0.0008780006757947936`", ",", 
+   "0.001810596372936526`", ",", "0.0029653079688556714`", ",", "0.`", ",", 
+   "0.003610178888729165`", ",", "0.00036458333333333324`", ",", "0.`", ",", 
+   "0.0229775199225422`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+   "0.0007116677440206854`", ",", "0.`", ",", "0.0016217354197230359`", ",", 
+   "0.001155422168867547`", ",", "0.0001357142857142858`", ",", 
+   "0.0007261904761904762`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+   ",", "0.019031576682071043`", ",", "0.`", ",", "0.`", ",", 
+   "0.0005997460522670608`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+   "0.00039697777173673264`", ",", "0.`", ",", "0.001221858063963327`", ",", 
+   "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+   "0.`", ",", "0.00023529411764705894`", ",", "0.0007022177649340279`", ",", 
+   "0.`", ",", "0.0008568848031763631`", ",", "0.`", ",", 
+   "0.0005799319727891156`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`", 
+   ",", "0.00002666666666666681`", ",", "0.`", ",", "0.`", ",", "0.`", ",", 
+   "0.000018907563025210252`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`",
+    ",", "0.0006807147960398737`", ",", "0.`", ",", "0.00023473034437946713`",
+    ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.0018682535957941172`", ",", 
+   "0.`", ",", "0.`", ",", "0.`", ",", "0.0002564102564102564`", ",", 
+   "0.00100015873015873`", ",", "0.002465961980271191`", ",", "0.`", ",", 
+   "0.`", ",", "0.0026284197012138187`", ",", "0.`", ",", "0.`", ",", "0.`", 
+   ",", "0.0008009745910198399`", ",", "0.`", ",", "0.`", ",", 
+   "0.0010108604845446949`", ",", "0.`", ",", "0.`", ",", "0.`", ",", "0.`"}],
+   "}"}]], "Output",
+ CellChangeTimes->{
+  3.708686309437772*^9},ExpressionUUID->"02ed87c7-eff3-40b6-b98b-\
+9b43788ca573"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"?", "Hue"}]], "Input",
+ CellChangeTimes->{{3.7086863128630877`*^9, 
+  3.708686313791244*^9}},ExpressionUUID->"b9db10a8-c290-41d4-8ee3-\
+ac9aeb95a3b6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Graphics", "[", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"Disk", "[", 
+         RowBox[{
+          RowBox[{"centers", "[", 
+           RowBox[{"[", "c", "]"}], "]"}], ",", "3"}], "]"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"c", ",", "n"}], "}"}]}], "]"}], "\[IndentingNewLine]", "}"}],
+     "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"n", ",", "1", ",", 
+     RowBox[{"Length", "@", "centers"}], ",", "1"}], "}"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.708687156074211*^9, 
+  3.708687179948942*^9}},ExpressionUUID->"9eed08b6-c440-455d-9aff-\
+ac47d22298e7"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`n$$ = 249, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`n$$], 1, 249, 1}}, Typeset`size$$ = {
+    360., {200., 204.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`n$6407$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`n$$ = 1}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`n$$, $CellContext`n$6407$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Graphics[{
+         Table[{
+           Disk[
+            Part[$CellContext`centers, $CellContext`c], 
+            3]}, {$CellContext`c, $CellContext`n$$}]}], 
+      "Specifications" :> {{$CellContext`n$$, 1, 249, 1}}, "Options" :> {}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{405., {258., 264.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.7086871808820457`*^9},ExpressionUUID->"b9398f18-d317-4136-a210-\
+ae8093e17583"]
+}, Open  ]]
+},
+WindowSize->{1148, 873},
+WindowMargins->{{Automatic, 233}, {-67, Automatic}},
+FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 16, \
+2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Info293708435380-4179760"->{
+  Cell[8477, 241, 2296, 39, 
+  122, "Print", "ExpressionUUID" -> "ece6f81f-a66d-4523-8f30-1f7c6992e211",
+   CellTags->"Info293708435380-4179760"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Info293708435380-4179760", 114166, 2235}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 843, 23, 75, "Input", "ExpressionUUID" -> \
+"befa6bb4-c26c-4143-a0c1-43ffe582ef7c"],
+Cell[1404, 45, 555, 16, 32, "Input", "ExpressionUUID" -> \
+"8c319969-46ef-436d-b127-a35ff8f97df7"],
+Cell[1962, 63, 532, 14, 32, "Input", "ExpressionUUID" -> \
+"77dbfea1-73b7-47c2-9bc6-397f2ba8e414"],
+Cell[2497, 79, 2864, 69, 642, "Input", "ExpressionUUID" -> \
+"61008626-cf16-41cc-9e27-4240960b2665"],
+Cell[CellGroupData[{
+Cell[5386, 152, 418, 9, 32, "Input", "ExpressionUUID" -> \
+"c81bc7e9-a8a9-40b3-9cb0-afaec3d32c44"],
+Cell[5807, 163, 368, 6, 32, "Output", "ExpressionUUID" -> \
+"1dda9f72-d5a1-4f3a-9f0d-99e27d817161"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6212, 174, 368, 9, 32, "Input", "ExpressionUUID" -> \
+"5a2eaba7-2a3c-4e75-89c0-7a1d30c50a2d"],
+Cell[6583, 185, 395, 7, 32, "Output", "ExpressionUUID" -> \
+"483954ef-73de-4ef2-93b4-786b22e4d823"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7015, 197, 348, 8, 32, "Input", "ExpressionUUID" -> \
+"f1227ba4-e57d-4e62-8c81-0c0cca228ed9"],
+Cell[7366, 207, 399, 7, 32, "Output", "ExpressionUUID" -> \
+"20539bee-6662-4098-bd79-14d0c8fc4db0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7802, 219, 231, 5, 32, "Input", "ExpressionUUID" -> \
+"aa62193f-b6ce-4084-ad72-cdd1926c8dc3"],
+Cell[8036, 226, 219, 4, 32, "Output", "ExpressionUUID" -> \
+"a7c22305-c146-48ed-8b0f-dd55b23b77d5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8292, 235, 182, 4, 32, "Input", "ExpressionUUID" -> \
+"b90871f5-9d85-40c6-8449-9ade8c6d73f8"],
+Cell[8477, 241, 2296, 39, 122, "Print", "ExpressionUUID" -> \
+"ece6f81f-a66d-4523-8f30-1f7c6992e211",
+ CellTags->"Info293708435380-4179760"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10810, 285, 341, 8, 32, "Input", "ExpressionUUID" -> \
+"ecc40b52-8838-485d-be33-1fa5b3c66515"],
+Cell[11154, 295, 8688, 224, 140, "Output", "ExpressionUUID" -> \
+"75ddc050-c7bb-47af-a9b7-2bdd679de637"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19879, 524, 386, 10, 32, "Input", "ExpressionUUID" -> \
+"55d05c77-98dd-429c-8aab-5363c0083067"],
+Cell[20268, 536, 1577, 36, 75, "Output", "ExpressionUUID" -> \
+"666c9dc0-c975-47e6-b02e-eb7ffde557ea"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[21882, 577, 231, 5, 32, "Input", "ExpressionUUID" -> \
+"df54f3d7-f33c-4433-8bd5-b79bbe3aae1a"],
+Cell[22116, 584, 149, 3, 32, "Output", "ExpressionUUID" -> \
+"8a7fddaa-50e3-49da-99b6-527434b0e945"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22302, 592, 233, 5, 32, "Input", "ExpressionUUID" -> \
+"fb3d3dae-07cd-47ed-96eb-27e5616ef4c5"],
+Cell[22538, 599, 148, 3, 32, "Output", "ExpressionUUID" -> \
+"ff6e1a6f-62e5-4854-abc2-dd86c966baf9"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22723, 607, 231, 5, 32, "Input", "ExpressionUUID" -> \
+"33387bb1-1cbc-4063-b3cd-025dd6ac0c96"],
+Cell[22957, 614, 150, 3, 32, "Output", "ExpressionUUID" -> \
+"594ed74d-b31d-46eb-96d9-85eed96ec327"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23144, 622, 1066, 28, 75, "Input", "ExpressionUUID" -> \
+"c79d6505-597f-4b72-ad67-9b2730f9b31e"],
+Cell[24213, 652, 9663, 245, 518, "Output", "ExpressionUUID" -> \
+"0298bf5c-93a7-42c4-9e75-570e92d250d6"]
+}, Open  ]],
+Cell[33891, 900, 269, 6, 30, "Text", "ExpressionUUID" -> \
+"c8813a28-391c-4f9f-b38d-6370796f7b13"],
+Cell[34163, 908, 152, 3, 32, "Input", "ExpressionUUID" -> \
+"16389885-65ed-489b-9f5f-d82dc8d1cd55"],
+Cell[34318, 913, 269, 6, 32, "Input", "ExpressionUUID" -> \
+"7e22c33b-377c-4e6e-afea-2579f311f4bc"],
+Cell[CellGroupData[{
+Cell[34612, 923, 1716, 47, 117, "Input", "ExpressionUUID" -> \
+"7d877a3f-abc7-4120-917f-55f1a041c5f4"],
+Cell[36331, 972, 33240, 510, 470, "Output", "ExpressionUUID" -> \
+"4da29f3b-7118-4241-ab5a-cdc6628ef895"]
+}, Open  ]],
+Cell[69586, 1485, 1768, 48, 117, "Input", "ExpressionUUID" -> \
+"98e6715d-2466-4409-a2ab-6728f850e11c"],
+Cell[71357, 1535, 33437, 515, 489, InheritFromParent, "ExpressionUUID" -> \
+"445e76b4-69d3-4786-ac1c-88d87bc6b8c1"],
+Cell[CellGroupData[{
+Cell[104819, 2054, 161, 3, 32, "Input", "ExpressionUUID" -> \
+"08767275-b45f-48f6-a9f5-c3e46b2f74ab"],
+Cell[104983, 2059, 6151, 90, 390, "Output", "ExpressionUUID" -> \
+"02ed87c7-eff3-40b6-b98b-9b43788ca573"]
+}, Open  ]],
+Cell[111149, 2152, 174, 4, 32, "Input", "ExpressionUUID" -> \
+"b9db10a8-c290-41d4-8ee3-ac9aeb95a3b6"],
+Cell[CellGroupData[{
+Cell[111348, 2160, 720, 21, 75, "Input", "ExpressionUUID" -> \
+"9eed08b6-c440-455d-9aff-ac47d22298e7"],
+Cell[112071, 2183, 1755, 38, 539, "Output", "ExpressionUUID" -> \
+"b9398f18-d317-4136-a210-ae8093e17583"]
+}, Open  ]]
+}
+]
+*)
+
